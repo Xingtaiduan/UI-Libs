@@ -90,7 +90,7 @@ local Toggle = Instance.new("TextButton")
 	Toggle.Position = UDim2.new(0, 0, 0.35, 0)
 	Toggle.Size = UDim2.new(0, 70, 0, 30)
 	Toggle.Font = Enum.Font.Gotham
-	Toggle.Text = "打开/隐藏脚本"
+	Toggle.Text = "打开/隐藏"
 	Toggle.TextColor3 = Color3.new(255, 255, 255)
 	Toggle.TextScaled = true
 	Toggle.TextSize = 8
@@ -98,9 +98,9 @@ local Toggle = Instance.new("TextButton")
 	
 	Toggle.MouseButton1Click:Connect(function()
 		if OrionLib.Main.Visible then
-			OrionLib.Main.Visible = false
+			OrionLib.Visible = false
 		else
-			OrionLib.Main.Visible = true
+			OrionLib.Visible = true
 		end
 	end)
 
