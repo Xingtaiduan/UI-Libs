@@ -97,10 +97,10 @@ local Toggle = Instance.new("TextButton")
 	Toggle.TextWrapped = true
 	
 	Toggle.MouseButton1Click:Connect(function()
-		if OrionLib.Main.Visible then
-			OrionLib.Visible = false
+		if OrionLib then
+			OrionLib = false
 		else
-			OrionLib.Visible = true
+			OrionLib = true
 		end
 	end)
 
