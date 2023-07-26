@@ -97,11 +97,7 @@ local Toggle = Instance.new("TextButton")
 	Toggle.TextWrapped = true
 	
 	Toggle.MouseButton1Click:Connect(function()
-		if OrionLib then
-			OrionLib = false
-		else
-			OrionLib = true
-		end
+		OrionLib:Destroy()
 	end)
 
 local function AddConnection(Signal, Function)
