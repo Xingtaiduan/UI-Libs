@@ -76,30 +76,6 @@ function OrionLib:IsRunning()
 
 end
 
-local Darkrai = Instance.new("ScreenGui") -- guess i am using hubname wrong
-	Darkrai.Name = "Darkrai" -- wait
-	Darkrai.Parent = game.CoreGui
-	Darkrai.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
-local Toggle = Instance.new("TextButton")
-	Toggle.Name = "Toggle"
-	Toggle.Parent = Darkrai
-	Toggle.BackgroundColor3 = Color3.new(0, 0, 0)
-	Toggle.BackgroundTransparency = 0
-	Toggle.BorderSizePixel = 2
-	Toggle.Position = UDim2.new(0, 0, 0.35, 0)
-	Toggle.Size = UDim2.new(0, 70, 0, 30)
-	Toggle.Font = Enum.Font.Gotham
-	Toggle.Text = "打开/隐藏"
-	Toggle.TextColor3 = Color3.new(255, 255, 255)
-	Toggle.TextScaled = true
-	Toggle.TextSize = 8
-	Toggle.TextWrapped = true
-	
-	Toggle.MouseButton1Click:Connect(function()
-		OrionLib:Destroy()
-	end)
-
 local function AddConnection(Signal, Function)
 	if (not OrionLib:IsRunning()) then
 		return
