@@ -5,6 +5,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
+local SimpleSexGUI = Instance.new("ScreenGui")
 local Exit = Instance.new("TextButton")
 
 SimpleSexGUI.Name = "SimpleSexGUI"
