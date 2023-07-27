@@ -28,7 +28,7 @@ Exit.MouseButton1Down:connect(function()
 		Exit.Text = "打开" else
 		MainWindow.Visible = true
 		Exit.Text = "关闭"	
-	end	
+	end 
 end)
 
 local OrionLib = {
