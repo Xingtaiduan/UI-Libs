@@ -6,28 +6,28 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
 local SimpleSexGUI = Instance.new("ScreenGui")
-local Exit = Instance.new("TextButton")
+local Toggle = Instance.new("TextButton")
 
 SimpleSexGUI.Name = "SimpleSexGUI"
 SimpleSexGUI.Parent = game.CoreGui
 
-Exit.Name = "Exit"
-Exit.Parent = SimpleSexGUI
-Exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Exit.Position = UDim2.new(0.8, 0, 0, 0)
-Exit.Size = UDim2.new(0, 32, 0, 25)
-Exit.Font = Enum.Font.SourceSansBold
-Exit.Text = "关闭"
-Exit.TextColor3 = Color3.fromRGB(0, 0, 0)
-Exit.TextScaled = true
-Exit.TextSize = 14.000
-Exit.TextWrapped = true
-Exit.MouseButton1Down:connect(function()
-	if Exit.Text == "关闭" then
+Toggle.Name = "Toggle"
+Toggle.Parent = SimpleSexGUI
+Toggle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+Toggle.Position = UDim2.new(0.8, 0, 0, 0)
+Toggle.Size = UDim2.new(0, 32, 0, 25)
+Toggle.Font = Enum.Font.SourceSansBold
+Toggle.Text = "关闭"
+Toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+Toggle.TextScaled = true
+Toggle.TextSize = 14.000
+Toggle.TextWrapped = true
+Toggle.MouseButton1Down:connect(function()
+	if Toggle.Text == "关闭" then
 		MainWindow.Visible = false
-		Exit.Text = "打开" else
+		Toggle.Text = "打开" else
 		MainWindow.Visible = true
-		Exit.Text = "关闭"	
+		Toggle.Text = "关闭"	
 	end 
 end)
 
