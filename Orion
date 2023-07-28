@@ -26,6 +26,7 @@ Exit.MouseButton1Down:connect(function()
 	if Exit.Text == "关闭" then
 		MainWindow.Visible = false
 		UIHidden = true
+		WindowConfig.CloseCallback()
 		Exit.Text = "打开" else
 		MainWindow.Visible = true
 		Exit.Text = "关闭"	
