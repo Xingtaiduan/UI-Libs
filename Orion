@@ -22,6 +22,9 @@ Exit.TextColor3 = Color3.fromRGB(0, 0, 0)
 Exit.TextScaled = true
 Exit.TextSize = 14.000
 Exit.TextWrapped = true
+
+MakeDraggable(DragPoint, MainWindow)
+
 Exit.MouseButton1Down:connect(function()
 		MainWindow.Visible = true
 end)
