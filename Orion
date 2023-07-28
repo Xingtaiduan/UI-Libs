@@ -24,9 +24,9 @@ Exit.TextSize = 14.000
 Exit.TextWrapped = true
 Exit.MouseButton1Down:connect(function()
 	if Exit.Text == "关闭" then
-		Orion.Visible = false
+		OrionLib.Visible = false
 		Exit.Text = "打开" else
-		Orion.Visible = true
+		OrionLib.Visible = true
 		Exit.Text = "关闭"	
 	end	
 end)
