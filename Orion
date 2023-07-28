@@ -22,11 +22,13 @@ Exit.TextColor3 = Color3.fromRGB(0, 0, 0)
 Exit.TextScaled = true
 Exit.TextSize = 14.000
 Exit.TextWrapped = true
-
-MakeDraggable(DragPoint, MainWindow)
-
 Exit.MouseButton1Down:connect(function()
-		MainWindow.Visible = true
+	if Exit.Text == "关闭" then
+		Orion.Visible = false
+		Exit.Text = "打开" else
+		Orion.Visible = true
+		Exit.Text = "关闭"	
+	end	
 end)
 
 local OrionLib = {
