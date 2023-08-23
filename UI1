@@ -1,5 +1,4 @@
 local start = os.clock()
---Why you stalk me code, I'm bad I know.
 local BackDesign = "http://www.roblox.com/asset/?id=9841972833"
 local Shadow = "http://www.roblox.com/asset/?id=9842069549"
 local DotDesc = "http://www.roblox.com/asset/?id=9844591544"
