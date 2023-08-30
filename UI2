@@ -1,4 +1,4 @@
-自然
+--自然
 
 local library = {}
 local windowCount = 0
