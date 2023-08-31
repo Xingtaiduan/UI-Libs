@@ -1,3 +1,5 @@
+--点击
+
 local start = os.clock()
 local BackDesign = "http://www.roblox.com/asset/?id=9841972833"
 local Shadow = "http://www.roblox.com/asset/?id=9842069549"
