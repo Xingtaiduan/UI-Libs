@@ -6,38 +6,6 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
-local Simple = Instance.new("ScreenGui")
-local FGUI = Instance.new("Frame")
-
-Simple.Name = "Simple"
-Simple.Parent = game.CoreGui
- 
- 
-FGUI.Name = "FGUI"
-FGUI.Parent = Simple
-FGUI.BackgroundColor3 = Color3.new(255,255,255)
-FGUI.BorderSizePixel = 1
-
-Exit.Name = "Exit"
-Exit.Parent = Simple
-Exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-Exit.Position = UDim2.new(0.8, 0, 0, 0)
-Exit.Size = UDim2.new(0, 32, 0, 25)
-Exit.Font = Enum.Font.SourceSansBold
-Exit.Text = "关闭"
-Exit.TextColor3 = Color3.fromRGB(0, 0, 0)
-Exit.TextScaled = true
-Exit.TextSize = 14.000
-Exit.TextWrapped = true
-Exit.MouseButton1Down:connect(function()
-	if Exit.Text == "关闭" then
-		gui.AbsoluteObject.Visible = false
-		Exit.Text = "打开" else
-		FGUI.Visible = true
-		Exit.Text = "关闭"	
-	end	
-end)
-
 local Library = {
 	Themes = {
 		Legacy = {
