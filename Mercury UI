@@ -6,24 +6,20 @@ local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local HTTPService = game:GetService("HttpService")
 
-local SimpleSexGUI = Instance.new("ScreenGui")
+local Simple = Instance.new("ScreenGui")
 local FGUI = Instance.new("Frame")
 
-SimpleSexGUI.Name = "SimpleSexGUI"
-SimpleSexGUI.Parent = game.CoreGui
+Simple.Name = "Simple"
+Simple.Parent = game.CoreGui
  
  
 FGUI.Name = "FGUI"
-FGUI.Parent = SimpleSexGUI
-FGUI.Active = true
+FGUI.Parent = Simple
 FGUI.BackgroundColor3 = Color3.new(255,255,255)
 FGUI.BorderSizePixel = 1
-FGUI.Position = UDim2.new(0,0, 0.667, 0)
-FGUI.Size = UDim2.new(0,317, 0,200)
-FGUI.Draggable = true
 
 Exit.Name = "Exit"
-Exit.Parent = SimpleSexGUI
+Exit.Parent = Simple
 Exit.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
 Exit.Position = UDim2.new(0.8, 0, 0, 0)
 Exit.Size = UDim2.new(0, 32, 0, 25)
