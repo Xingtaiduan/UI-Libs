@@ -6,19 +6,9 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 
 local OpenGUI = Instance.new("ScreenGui")
-local FGUI = Instance.new("Frame")
 local Open = Instance.new("TextButton")
 OpenGUI.Name = "OpenGUI"
 OpenGUI.Parent = game.CoreGui
-
-FGUI.Name = "FGUI"
-FGUI.Parent = OpenGUI
-FGUI.Active = true
-FGUI.BackgroundColor3 = Color3.new(255,255,255)
-FGUI.BorderSizePixel = 1
-FGUI.Position = UDim2.new(0,0, 0.667, 0)
-FGUI.Size = UDim2.new(0,317, 0,200)
-FGUI.Draggable = true
 
 Open.Name = "Open"
 Open.Parent = OpenGUI
