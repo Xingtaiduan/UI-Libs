@@ -3,15 +3,15 @@ if FindUI then
     FindUI:Destroy()
 end
 local Library = {RainbowColorValue = 0, HueSelectionPosition = 0}
-local UserInputService = game.UserInputService
-local TweenService = game.TweenService
+local UserInputService = game:GetService("UserInputService")
+local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local Mouse = game.Players.LocalPlayer:GetMouse()
 local MouseMovement = Enum.UserInputType.MouseMovement
 local MouseButton1 = Enum.UserInputType.MouseButton1
 local Touch = Enum.UserInputType.Touch
 local LP = game.Players.LocalPlayer
-local HS = game.HttpService
+local HS = game:GetService("HttpService")
 HS.HttpEnabled = true
 function GetJson(v)
     return HS:JSONDecode(HS:GetAsync(v))
