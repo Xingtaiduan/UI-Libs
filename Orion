@@ -33,6 +33,7 @@ else
 game.CoreGui.XiaoOrion.Enabled = true
 end
 end)
+_G.OrionLoaded = true
 
 local OrionLib = {
 	Elements = {},
