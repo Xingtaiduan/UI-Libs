@@ -27,10 +27,10 @@ Button.TextWrapped = true
 Button.Draggable = true
 UICorner.Parent = Button
 Button.MouseButton1Click:connect(function()
-if game.CoreGui.XiaoOrion.Enabled == true then
-game.CoreGui.XiaoOrion.Enabled = false
+if XiaoOrion.Enabled == true then
+XiaoOrion.Enabled = false
 else
-game.CoreGui.XiaoOrion.Enabled = true
+XiaoOrion.Enabled = true
 end
 end)
 
