@@ -33,7 +33,7 @@ else
 game.CoreGui.XiaoOrion.Enabled = true
 end
 end)
-_G.OrionLoaded = true
+pcall(function() getgenv().OrionLoaded = true end)
 
 local OrionLib = {
 	Elements = {},
