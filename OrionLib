@@ -6,6 +6,34 @@ local Mouse = LocalPlayer:GetMouse()
 local HttpService = game:GetService("HttpService")
 local NotificationBindable = Instance.new("BindableFunction")
 --Toggle
+local UIGui = Instance.new("ScreenGui")
+local ToggleButton = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+
+UIGui.Name = "OrionToggle"
+UIGui.Parent = game.CoreGui
+
+ToggleButton.Name = "ToggleButton"
+ToggleButton.Parent = UIGui
+ToggleButton.Size = UDim2.new(0, 32, 0, 32)
+ToggleButton.Position = UDim2.new(0, 105, 0, -32)
+ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+ToggleButton.BackgroundTransparency = 0.5
+ToggleButton.Text = "X"
+ToggleButton.TextColor3 = Color3.fromRGB(200, 200, 200)
+ToggleButton.Font = 'Code'
+ToggleButton.TextSize = 20
+ToggleButton.Draggable = false
+ToggleButton.MouseButton1Click:Connect(function()
+if game.CoreGui.XiaoOrion.Enabled == true then
+game.CoreGui.XiaoOrion.Enabled = false
+else
+game.CoreGui.XiaoOrion.Enabled = true
+end
+end)
+
+UICorner.Parent = ToggleButton
+UICorner.CornerRadius = UDim.new(0, 8)
 
 getgenv().OrionLoaded = true
 
