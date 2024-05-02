@@ -11,7 +11,31 @@ local ui = Instance.new("ScreenGui")
 ui.Name = "ui"
 ui.Parent = game.CoreGui
 ui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-
+--Toggle
+local VapeToggle = Instance.new("ScreenGui")
+local Button = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+VapeToggle.Name = "VapeToggle"
+VapeToggle.Parent = game.CoreGui
+Button.Name = "Button"
+Button.Parent = VapeToggle
+Button.BackgroundColor3 = Color3.fromRGB(77, 77, 77)
+Button.BorderColor3 = Color3.fromRGB(52, 52, 52)
+Button.BorderSizePixel = 0
+Button.Position = UDim2.new(0.942588627, 0, 0.223685458, 0)
+Button.Size = UDim2.new(0.0358672254, 0, 0.0771396905, 0)
+Button.Font = Enum.Font.FredokaOne
+Button.Text = "T"
+Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+Button.TextScaled = true
+Button.TextSize = 33.000
+Button.TextWrapped = true
+Button.Draggable = true
+UICorner.Parent = Button
+Button.MouseButton1Click:connect(function()
+game:GetService("VirtualInputManager"):SendKeyEvent(true, "E" , false , game)
+end)
+--
 coroutine.wrap(
     function()
         while wait() do
