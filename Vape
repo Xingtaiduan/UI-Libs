@@ -33,7 +33,13 @@ Button.TextWrapped = true
 Button.Draggable = true
 UICorner.Parent = Button
 Button.MouseButton1Click:connect(function()
-game:GetService("VirtualInputManager"):SendKeyEvent(true, "E" , false , game)
+if uitoggled == false then
+    Main:TweenSize(UDim2.new(0, 0, 0, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+    uitoggled = true
+else
+    Main:TweenSize(UDim2.new(0, 560, 0, 319), Enum.EasingDirection.Out, Enum.EasingStyle.Quart, 0.5, true)
+    uitoggled = false
+end
 end)
 --
 coroutine.wrap(
