@@ -825,7 +825,7 @@ function lib:Window(text, preset, closebind)
             )
             Tab.CanvasSize = UDim2.new(0, 0, 0, TabLayout.AbsoluteContentSize.Y)
         end
-        function tabcontent:Dropdown(text, default, list, callback)
+        function tabcontent:Dropdown(text, list, callback)
             local droptog = false
             local framesize = 0
             local itemcount = 0
@@ -857,7 +857,7 @@ function lib:Window(text, preset, closebind)
             DropdownBtn.Font = Enum.Font.SourceSans
             DropdownBtn.Text = ""
             DropdownBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
-            DropdownBtn.TextSize = 15.000
+            DropdownBtn.TextSize = 14.000
 
             DropdownTitle.Name = "DropdownTitle"
             DropdownTitle.Parent = Dropdown
@@ -866,9 +866,9 @@ function lib:Window(text, preset, closebind)
             DropdownTitle.Position = UDim2.new(0.0358126722, 0, 0, 0)
             DropdownTitle.Size = UDim2.new(0, 187, 0, 42)
             DropdownTitle.Font = Enum.Font.Gotham
-            DropdownTitle.Text = text .. " - " .. default
+            DropdownTitle.Text = text
             DropdownTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            DropdownTitle.TextSize = 15.000
+            DropdownTitle.TextSize = 14.000
             DropdownTitle.TextXAlignment = Enum.TextXAlignment.Left
 
             ArrowImg.Name = "ArrowImg"
@@ -893,8 +893,6 @@ function lib:Window(text, preset, closebind)
             DropLayout.Name = "DropLayout"
             DropLayout.Parent = DropItemHolder
             DropLayout.SortOrder = Enum.SortOrder.LayoutOrder
-
-            pcall(callback, default)
 
             DropdownBtn.MouseButton1Click:Connect(
                 function()
