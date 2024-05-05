@@ -35,10 +35,6 @@ UICorner.Parent = Button
 Button.MouseButton1Click:connect(function()
 ToggleUI()
 end)
---Destroy
-function ui:Destroy()
-    ui:Destroy()
-end
 --
 coroutine.wrap(
     function()
