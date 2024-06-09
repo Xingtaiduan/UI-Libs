@@ -19,16 +19,16 @@ ToggleButton.Size = UDim2.new(0, 32, 0, 32)
 ToggleButton.Position = UDim2.new(0, 105, 0, -32)
 ToggleButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 ToggleButton.BackgroundTransparency = 0.5
-ToggleButton.Text = "XA"
+ToggleButton.Text = "X"
 ToggleButton.TextColor3 = Color3.fromRGB(200, 200, 200)
 ToggleButton.Font = 'Code'
 ToggleButton.TextSize = 20
 ToggleButton.Draggable = false
 ToggleButton.MouseButton1Click:Connect(function()
-if game.CoreGui.XiaoOrion.Enabled == true then
-game.CoreGui.XiaoOrion.Enabled = false
+if game.CoreGui.XAOrion.Enabled == true then
+game.CoreGui.XAOrion.Enabled = false
 else
-game.CoreGui.XiaoOrion.Enabled = true
+game.CoreGui.XAOrion.Enabled = true
 end
 end)
 
