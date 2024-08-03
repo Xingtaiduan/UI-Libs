@@ -8,6 +8,9 @@ local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
+local MouseMovement = Enum.UserInputType.MouseMovement
+local MouseButton1 = Enum.UserInputType.MouseButton1
+local Touch = Enum.UserInputType.Touch
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
