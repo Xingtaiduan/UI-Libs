@@ -727,7 +727,7 @@ function lib:Window(text, preset, closebind)
             Slider.Font = Enum.Font.SourceSans
             Slider.Text = ""
             Slider.TextColor3 = Color3.fromRGB(0, 0, 0)
-            Slider.TextSize = 14.000
+            Slider.TextSize = 15.000
 
             SliderCorner.CornerRadius = UDim.new(0, 5)
             SliderCorner.Name = "SliderCorner"
@@ -742,7 +742,7 @@ function lib:Window(text, preset, closebind)
             SliderTitle.Font = Enum.Font.Gotham
             SliderTitle.Text = text
             SliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderTitle.TextSize = 14.000
+            SliderTitle.TextSize = 15.000
             SliderTitle.TextXAlignment = Enum.TextXAlignment.Left
 
             SliderValue.Name = "SliderValue"
@@ -754,7 +754,7 @@ function lib:Window(text, preset, closebind)
             SliderValue.Font = Enum.Font.Gotham
             SliderValue.Text = tostring(start and math.floor((start / max) * (max - min) + min) or 0)
             SliderValue.TextColor3 = Color3.fromRGB(255, 255, 255)
-            SliderValue.TextSize = 14.000
+            SliderValue.TextSize = 15.000
             SliderValue.TextXAlignment = Enum.TextXAlignment.Right
 
             SlideFrame.Name = "SlideFrame"
