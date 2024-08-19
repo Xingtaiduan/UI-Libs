@@ -870,8 +870,6 @@ function lib:Window(text, preset, closebind)
                 end
             )()
 
-            pcall(callback, start and math.floor((start / max) * (max - min) + min) or 0)
-
             local function move(input)
                 local pos =
                     UDim2.new(
