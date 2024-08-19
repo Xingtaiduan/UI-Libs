@@ -432,7 +432,7 @@ function lib:Window(text, preset, closebind)
         TabBtn.Font = Enum.Font.Gotham
         TabBtn.Text = text
         TabBtn.TextColor3 = Color3.fromRGB(150, 150, 150)
-        TabBtn.TextSize = 15.000
+        TabBtn.TextSize = 14.000
         TabBtn.TextXAlignment = Enum.TextXAlignment.Left
 
         TabBtnIndicator.Name = "TabBtnIndicator"
