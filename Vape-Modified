@@ -907,7 +907,7 @@ function lib:Window(text, preset, closebind)
         end
         function tabcontent:Dropdown(text, list, callback)
             local droptog = false
-            local framesize = 25
+            local framesize = 50
             local itemcount = 0
 
             local Dropdown = Instance.new("Frame")
