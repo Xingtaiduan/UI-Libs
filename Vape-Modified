@@ -1,3 +1,6 @@
+if not isfolder("XA-Hub") then makefolder("XA-Hub") end
+if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib")
+
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
