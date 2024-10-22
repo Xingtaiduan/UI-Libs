@@ -88,28 +88,26 @@ function DarkraiX:Window(text,gamenme)
 	Darkrai.Parent = game.CoreGui
 	Darkrai.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-
-    local ToggleGui = Instance.new("ScreenGui")
-    local ToggleFrame = Instance.new("Frame")
+    local KINGHUBMOBILE = Instance.new("ScreenGui")
+    local _100x100 = Instance.new("Frame")
     local ImageButton = Instance.new("ImageButton")
 
-    ToggleGui.Name = "ToggleGui"
-    ToggleGui.Parent = Darkrai
-    ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    KINGHUBMOBILE.Name = "KING HUB MOBILE"
+    KINGHUBMOBILE.Parent = Darkrai
+    KINGHUBMOBILE.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-    ToggleFrame.Name = "ToggleFrame"
-    ToggleFrame.Parent = ToggleGui
-    ToggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    ToggleFrame.Position = UDim2.new(0.822025776, 0, 0.0401606411, 0)
-    ToggleFrame.Size = UDim2.new(0, 76, 0, 70)
-    ToggleFrame.Draggable = true
+    _100x100.Name = "100x100"
+    _100x100.Parent = KINGHUBMOBILE
+    _100x100.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    _100x100.Position = UDim2.new(0.822025776, 0, 0.0401606411, 0)
+    _100x100.Size = UDim2.new(0, 76, 0, 70)
 
-    ImageButton.Parent = ToggleFrame
+    ImageButton.Parent = _100x100
     ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ImageButton.Size = UDim2.new(0, 76, 0, 70)
     ImageButton.Image = "rbxthumb://type=Asset&id=95848018322402&w=150&h=150"
     ImageButton.MouseButton1Down:connect(function()
-		if Darkrai.Main.Visible then
+	    if Darkrai.Main.Visible then
 			Darkrai.Main.Visible = false
 		else
 			Darkrai.Main.Visible = true
