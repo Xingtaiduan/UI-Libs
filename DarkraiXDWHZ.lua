@@ -102,6 +102,7 @@ function DarkraiX:Window(text,gamenme)
     ToggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ToggleFrame.Position = UDim2.new(0.822025776, 0, 0.0401606411, 0)
     ToggleFrame.Size = UDim2.new(0, 76, 0, 70)
+    ToggleFrame.Draggable = true
 
     ImageButton.Parent = ToggleFrame
     ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
