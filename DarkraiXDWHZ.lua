@@ -1,3 +1,7 @@
+if not isfile("多玩盒子.jpg") then
+    writefile("多玩盒子.jpg", game:HttpGet("https://github.com/Xingtaiduan/Script/blob/main/Assets/Image/DuoWanHeZi.jpg?raw=true"))
+end
+
 local PlaceName = game.MarketplaceService:GetProductInfo(game.PlaceId).Name
 
     if not game:IsLoaded() then repeat game.Loaded:Wait() until game:IsLoaded() end
@@ -107,7 +111,7 @@ function DarkraiX:Window(text,gamenme)
     ImageButton.Parent = ToggleFrame
     ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ImageButton.Size = UDim2.new(0, 76, 0, 70)
-    ImageButton.Image = "rbxassetid://95848018322402"
+    ImageButton.Image = "rbxassetid://多玩盒子.jpg"
     ImageButton.MouseButton1Down:connect(function()
 		if Darkrai.Main.Visible then
 			Darkrai.Main.Visible = false
