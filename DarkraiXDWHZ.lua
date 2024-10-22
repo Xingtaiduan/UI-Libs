@@ -107,6 +107,7 @@ function DarkraiX:Window(text,gamenme)
     ImageButton.BackgroundTransparency = 1
     ImageButton.Size = UDim2.new(0, 70, 0, 70)
     ImageButton.Image = "rbxassetid://95848018322402"
+    ImageButton.ImageTransparency = 1
     ImageButton.MouseButton1Down:connect(function()
 		if Darkrai.Main.Visible then
 			Darkrai.Main.Visible = false
