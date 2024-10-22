@@ -96,7 +96,7 @@ function DarkraiX:Window(text,gamenme)
     ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     ImageButton.Parent = ToggleGui
-    ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageButton.Position = UDim2.new(0.822025776, 0, 0.0401606411, 0)
     ImageButton.Size = UDim2.new(0, 76, 0, 70)
     ImageButton.Image = "rbxthumb://type=Asset&id=95848018322402&w=150&h=150"
     ImageButton.Draggable = true
