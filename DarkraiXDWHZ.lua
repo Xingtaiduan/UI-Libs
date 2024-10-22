@@ -95,19 +95,19 @@ function DarkraiX:Window(text,gamenme)
 
     ToggleGui.Name = "ToggleGui"
     ToggleGui.Parent = Darkrai
+    ToggleGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
     ToggleFrame.Name = "ToggleFrame"
     ToggleFrame.Parent = ToggleGui
     ToggleFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     ToggleFrame.Position = UDim2.new(0.822025776, 0, 0.0401606411, 0)
-    ToggleFrame.Size = UDim2.new(0, 70, 0, 70)
+    ToggleFrame.Size = UDim2.new(0, 76, 0, 70)
     ToggleFrame.Draggable = true
 
     ImageButton.Parent = ToggleFrame
-    ImageButton.Size = UDim2.new(0, 70, 0, 70)
+    ImageButton.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ImageButton.Size = UDim2.new(0, 76, 0, 70)
     ImageButton.Image = "rbxthumb://type=Asset&id=95848018322402&w=150&h=150"
-    ImageButton.ImageTransparency = 1
-    ImageButton.ScaleType = Enum.ScaleType.Slice
     ImageButton.MouseButton1Down:connect(function()
 		if Darkrai.Main.Visible then
 			Darkrai.Main.Visible = false
