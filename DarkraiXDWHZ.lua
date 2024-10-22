@@ -105,7 +105,7 @@ function DarkraiX:Window(text,gamenme)
 
     ImageButton.Parent = ToggleFrame
     ImageButton.Size = UDim2.new(0, 70, 0, 70)
-    ImageButton.Image = "rbxassetid://95848018322402"
+    ImageButton.Image = "rbxthumb://type=Asset&id=95848018322402&w=150&h=150"
     ImageButton.ImageTransparency = 1
     ImageButton.ScaleType = Enum.ScaleType.Slice
     ImageButton.MouseButton1Down:connect(function()
