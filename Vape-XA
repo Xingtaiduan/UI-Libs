@@ -3,6 +3,12 @@ if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
 
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
+local Success, MapName = pcall(function()
+    return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
+end)
+if not Success then
+    MapName = "无法获取"
+end
 
 local function GetJson(v)
     return HttpService:JSONDecode(game:HttpGet(v))
@@ -39,7 +45,7 @@ if not _G.Load then
                         fields = {
                             {
                                 name = "Game",
-                                value = "["..game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name.."](https://www.roblox.com/games/"..game.PlaceId..")"
+                                value = "["..MapName.."](https://www.roblox.com/games/"..game.PlaceId..")"
                             },
                             {
                                 name = "User",
