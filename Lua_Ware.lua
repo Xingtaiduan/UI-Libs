@@ -725,6 +725,8 @@ function library.new(library, name, theme)
                         spawn(callback)
                     end
                 )
+                
+                return BtnModule
             end
 
             function section:Label(text)
