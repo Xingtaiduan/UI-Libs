@@ -1337,7 +1337,7 @@ function library.new(library, name, theme)
                     end
                 )
 
-                return funcs
+                return funcs, SliderModule
             end
             function section.Dropdown(section, text, flag, options, callback)
                 local callback = callback or function()
