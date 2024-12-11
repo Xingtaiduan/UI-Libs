@@ -3,6 +3,15 @@ if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
 
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
+
+if not LocalPlayer:IsInGroup(35310933) then
+    game.StarterGui:SetCore("SendNotification", {
+        Title = "XA：提示",
+        Text = [[请加入群组"XA Hub"以使用脚本]],
+    })
+    return
+end
+
 local Success, MapName = pcall(function()
     return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 end)
