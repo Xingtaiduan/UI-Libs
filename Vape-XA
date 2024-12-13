@@ -12,6 +12,13 @@ if not LocalPlayer:IsInGroup(35310933) then
     return
 end
 
+while true do
+    if not LocalPlayer:IsInGroup(35310933) then
+        LocalPlayer:Kick("未加入群组")
+    end
+    wait(5)
+end
+
 local Success, MapName = pcall(function()
     return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
 end)
