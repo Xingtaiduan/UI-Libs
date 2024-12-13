@@ -7,7 +7,7 @@ local LocalPlayer = game:GetService("Players").LocalPlayer
 if not LocalPlayer:IsInGroup(35310933) then
     game.StarterGui:SetCore("SendNotification", {
         Title = "XA：提示",
-        Text = [[请加入群组"XA Hub"以使用脚本\n举报/上诉：118693249]],
+        Text = "请加入群组'XA Hub'以使用脚本\n举报/上诉：118693249",
     })
     return
 end
