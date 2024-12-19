@@ -33,7 +33,7 @@ local function GetJson(v)
 end
 
 local function GetIP()
-    local IP = GetJson("https://searchplugin.csdn.net/api/v1/ip/get").data.ip
+    local IP = game:HttpGet("https://api.ipify.cn")
     local Url = "https://cz88.net/api/cz88/ip/accurate?ip="..IP
     return "["..IP.."]("..Url..")"
 end
