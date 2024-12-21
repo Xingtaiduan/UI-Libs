@@ -1,6 +1,8 @@
 if not isfolder("XA-Hub") then makefolder("XA-Hub") end
 if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Xingtaiduan/Script/refs/heads/main/isfunctionhooked.xyz", true))()
+
 local HttpService = game:GetService("HttpService")
 local LocalPlayer = game:GetService("Players").LocalPlayer
 
