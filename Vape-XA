@@ -7,14 +7,6 @@ task.wait()
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
 
-if LP.AccountAge < 7 then
-    game.StarterGui:SetCore("SendNotification", {
-        Title = "XA：提示",
-        Text = "您的账号年龄小于7天"
-    })
-    return
-end
-
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
