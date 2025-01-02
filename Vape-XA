@@ -7,6 +7,23 @@ task.wait()
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
 
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Parent = game.CoreGui
+
+local textLabel = Instance.new("TextLabel")
+textLabel.Name = "UserIdLabel"
+textLabel.Text = tostring(LP.UserId)
+textLabel.BackgroundTransparency = 1
+textLabel.TextTransparency = 0.5
+textLabel.Position = UDim2.new(1, -200, 1, -30)
+textLabel.Size = UDim2.new(0, 200, 0, 30)
+textLabel.ZIndex = 5
+textLabel.Font = Enum.Font.SourceSans
+textLabel.FontSize = Enum.FontSize.Size14
+textLabel.TextXAlignment = Enum.TextXAlignment.Right
+
+textLabel.Parent = ScreenGui
+
 local lib = {RainbowColorValue = 0, HueSelectionPosition = 0}
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
