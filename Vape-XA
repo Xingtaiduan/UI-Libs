@@ -5,8 +5,8 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.CoreGui
 
 local textLabel = Instance.new("TextLabel")
-textLabel.Name = "UserIdLabel"
-textLabel.Text = tostring(LP.UserId)
+textLabel.Name = "information"
+textLabel.Text = identifyexecutor():sub(1, 1)..LP.UserId
 textLabel.TextSize = 15
 textLabel.TextTransparency = 0.4
 textLabel.BackgroundTransparency = 1
