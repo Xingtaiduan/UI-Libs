@@ -5,12 +5,12 @@ local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.CoreGui
 
 local textLabel = Instance.new("TextLabel")
-textLabel.Name = "information"
+textLabel.Name = "Information"
 textLabel.Text = identifyexecutor():sub(1, 1)..LP.UserId
 textLabel.TextSize = 15
 textLabel.TextTransparency = 0.4
 textLabel.BackgroundTransparency = 1
-textLabel.Position = UDim2.new(1, -200, 1, -30)
+textLabel.Position = UDim2.new(1, 0, 1, 0)
 textLabel.Size = UDim2.new(0, 200, 0, 30)
 textLabel.ZIndex = 5
 textLabel.TextXAlignment = Enum.TextXAlignment.Right
