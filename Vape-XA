@@ -14,12 +14,9 @@ textLabel.Position = UDim2.new(1, -200, 1, -30)
 textLabel.Size = UDim2.new(0, 200, 0, 30)
 textLabel.ZIndex = 5
 textLabel.TextXAlignment = Enum.TextXAlignment.Right
-
 textLabel.Parent = ScreenGui
 
-local a = loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
-
-if not a then return end
+loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
 if not LP:IsInGroup(35310933) then
     LP:Kick("Verification failed")
 end
