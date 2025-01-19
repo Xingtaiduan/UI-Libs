@@ -712,6 +712,8 @@ local Library = {
 	MinimizeKey = Enum.KeyCode.LeftControl,
 }
 
+setmetatable(Library.Options, {__index = function() return {} end})
+
 local function isMotor(value)
 	local motorType = tostring(value):match("^Motor%((.+)%)$")
 
@@ -6712,7 +6714,7 @@ local InterfaceManager = {} do
 		local section = tab:AddSection("Interface")
 
 		local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
-			Title = "Theme",
+			Title = "主题",
 			Description = "Changes the interface theme.",
 			Values = Library.Themes,
 			Default = Settings.Theme,
