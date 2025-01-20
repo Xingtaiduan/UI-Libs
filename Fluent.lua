@@ -2841,17 +2841,17 @@ Components.TitleBar = (function()
 
 		TitleBar.CloseButton = BarButton(Components.Assets.Close, UDim2.new(1, -4, 0, 4), TitleBar.Frame, function()
 			Library.Window:Dialog({
-				Title = "Close",
-				Content = "Are you sure you want to unload the interface?",
+				Title = "关闭界面",
+				Content = "你确定要关闭该界面吗？",
 				Buttons = {
 					{
-						Title = "Yes",
+						Title = "确定",
 						Callback = function()
 							Library:Destroy()
 						end,
 					},
 					{
-						Title = "No",
+						Title = "取消",
 					},
 				},
 			})
@@ -2880,7 +2880,7 @@ Components.Window = (function()
 			TabWidth = 0,
 			Position = UDim2.fromOffset(
 				Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-				Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2
+				(Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2) - 15
 			),
 		}
 
@@ -4105,14 +4105,23 @@ ElementsTable.Slider = (function()
 			end
 		end)
 
-		Creator.AddSignal(SliderDot.InputEnded, function(Input)
+		--[[Creator.AddSignal(SliderDot.InputEnded, function(Input)
 			if
 				Input.UserInputType == Enum.UserInputType.MouseButton1
 				or Input.UserInputType == Enum.UserInputType.Touch
 			then
 				Dragging = false
 			end
-		end)
+		end)]]
+		
+		Creator.AddSignal(UserInputService.InputEnded, function(Input)
+            if
+                Input.UserInputType == Enum.UserInputType.MouseButton1
+                or Input.UserInputType == Enum.UserInputType.Touch
+            then
+                Dragging = false
+            end
+        end)
 
 		Creator.AddSignal(UserInputService.InputChanged, function(Input)
 			if
