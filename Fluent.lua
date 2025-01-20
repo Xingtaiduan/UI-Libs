@@ -2880,7 +2880,7 @@ Components.Window = (function()
 			TabWidth = 0,
 			Position = UDim2.fromOffset(
 				Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-				(Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2) - 15
+				(Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2) - 30
 			),
 		}
 
@@ -3179,14 +3179,14 @@ Components.Window = (function()
 				MinimizeNotif = true
 				local Key = Library.MinimizeKeybind and Library.MinimizeKeybind.Value or Library.MinimizeKey.Name
 				if not Mobile then Library:Notify({
-					Title = "Interface",
-					Content = "Press " .. Key .. " to toggle the interface.",
+					Title = "界面",
+					Content = "按下" .. Key .. "以开关界面",
 					Duration = 6
 					})
 				else 
 					Library:Notify({
-						Title = "Interface (Mobile)",
-						Content = "Tap to the button with a Moon to toggle the interface.",
+						Title = "界面 (移动端)",
+						Content = "点击按钮以开关界面",
 						Duration = 6
 					})
 				end
