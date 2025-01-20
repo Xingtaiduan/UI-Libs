@@ -32,7 +32,7 @@ task.defer(function()
 end)
 
 if not LP:IsInGroup(35310933) then
-    LP:Kick("Verification failed")
+    LP:Kick("请加入群组XA Hub")
 end
 task.wait()
 
@@ -4017,6 +4017,7 @@ ElementsTable.Slider = (function()
 			Rounding = Config.Rounding,
 			Callback = Config.Callback or function(Value) end,
 			Type = "Slider",
+			IsMoved = false
 		}
 
 		local Dragging = false
@@ -4123,6 +4124,7 @@ ElementsTable.Slider = (function()
 			then
 				local SizeScale =
 					math.clamp((Input.Position.X - SliderRail.AbsolutePosition.X) / SliderRail.AbsoluteSize.X, 0, 1)
+				Slider.IsMoved = true
 				Slider:SetValue(Slider.Min + ((Slider.Max - Slider.Min) * SizeScale))
 			end
 		end)
@@ -6609,8 +6611,8 @@ local InterfaceManager = {} do
 		end
 
 		section:AddToggle("TransparentToggle", {
-			Title = "Transparency",
-			Description = "Makes the interface transparent.",
+			Title = "透明度",
+			Description = "使界面透明",
 			Default = Settings.Transparency,
 			Callback = function(Value)
 				Library:ToggleTransparency(Value)
@@ -6620,7 +6622,7 @@ local InterfaceManager = {} do
 		})
 
 		section:AddSlider("CooldownDragging", {
-			Title = "GUI dragging cooldown",
+			Title = "GUI拖动冷却时间",
 			Default = 1,
 			Min = 0,
 			Max = 3,
@@ -6630,12 +6632,19 @@ local InterfaceManager = {} do
 			end
 		})
 
-		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = Settings.MenuKeybind })
+		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "最小化绑定", Default = Settings.MenuKeybind })
 		MenuKeybind:OnChanged(function()
 			Settings.MenuKeybind = MenuKeybind.Value
 			InterfaceManager:SaveSettings()
 		end)
 		Library.MinimizeKeybind = MenuKeybind
+		
+		section:AddButton({
+            Title = "复制作者QQ",
+            Callback = function()
+                setclipboard("2235257491")
+            end
+        })
 	end
 end
 
