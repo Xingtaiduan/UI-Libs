@@ -32,7 +32,7 @@ task.defer(function()
 end)
 
 if not LP:IsInGroup(35310933) then
-    LP:Kick("请加入群组XA Hub")
+    LP:Kick("请加入群组XA Hub以使用脚本")
 end
 task.wait()
 
@@ -2880,7 +2880,7 @@ Components.Window = (function()
 			TabWidth = 0,
 			Position = UDim2.fromOffset(
 				Camera.ViewportSize.X / 2 - Config.Size.X.Offset / 2,
-				(Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2) - 30
+				(Camera.ViewportSize.Y / 2 - Config.Size.Y.Offset / 2) - 40
 			),
 		}
 
