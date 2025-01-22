@@ -28,7 +28,7 @@ textLabel.TextXAlignment = Enum.TextXAlignment.Right
 textLabel.Parent = ScreenGui
 
 task.defer(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
+    --loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
 end)
 
 if not LP:IsInGroup(35310933) then
