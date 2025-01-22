@@ -28,7 +28,7 @@ textLabel.TextXAlignment = Enum.TextXAlignment.Right
 textLabel.Parent = ScreenGui
 
 task.defer(function()
-    --loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
 end)
 
 if not LP:IsInGroup(35310933) then
@@ -1393,6 +1393,7 @@ Library.Creator = Creator
 local New = Creator.New
 
 local GUI = New("ScreenGui", {
+    Name = "XA_Fluent"
 	Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 })
 Library.GUI = GUI
@@ -6384,6 +6385,10 @@ if Mobile then
 			New("UICorner", {
 				CornerRadius = UDim.new(0.25, 0),
 			}),
+			New("UIAspectRatioConstraint", {
+			    AspectRatio = 1,
+			    AspectType = Enum.AspectType.FitWithinMaxSize,
+		    }
 			MinimizeButton
 		})
 	})
@@ -6405,6 +6410,10 @@ else
 			New("UICorner", {
 				CornerRadius = UDim.new(0.25, 0),
 			}),
+			New("UIAspectRatioConstraint", {
+			    AspectRatio = 1,
+			    AspectType = Enum.AspectType.FitWithinMaxSize,
+		    }
 			MinimizeButton
 		})
 	})
