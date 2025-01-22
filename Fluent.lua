@@ -6388,7 +6388,7 @@ if Mobile then
 			New("UIAspectRatioConstraint", {
 			    AspectRatio = 1,
 			    AspectType = Enum.AspectType.FitWithinMaxSize,
-		    },
+		    }),
 			MinimizeButton
 		})
 	})
@@ -6413,7 +6413,7 @@ else
 			New("UIAspectRatioConstraint", {
 			    AspectRatio = 1,
 			    AspectType = Enum.AspectType.FitWithinMaxSize,
-		    },
+		    }),
 			MinimizeButton
 		})
 	})
