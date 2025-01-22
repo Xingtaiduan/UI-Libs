@@ -1393,7 +1393,7 @@ Library.Creator = Creator
 local New = Creator.New
 
 local GUI = New("ScreenGui", {
-    Name = "XA_Fluent"
+    Name = "XA_Fluent",
 	Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
 })
 Library.GUI = GUI
