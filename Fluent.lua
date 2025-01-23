@@ -12,23 +12,8 @@ dsc.gg/hydrahub  |   31.12 - fixed all themes, more info in discord.
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
 
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.CoreGui
-
-local textLabel = Instance.new("TextLabel")
-textLabel.Name = "Information"
-textLabel.Text = identifyexecutor():sub(1, 1)..LP.UserId
-textLabel.TextSize = 15
-textLabel.TextTransparency = 0.4
-textLabel.BackgroundTransparency = 1
-textLabel.Position = UDim2.new(1, -200, 1, -30)
-textLabel.Size = UDim2.new(0, 200, 0, 30)
-textLabel.ZIndex = 5
-textLabel.TextXAlignment = Enum.TextXAlignment.Right
-textLabel.Parent = ScreenGui
-
 task.defer(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/VapeUILoader"))()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
 end)
 
 if not LP:IsInGroup(35310933) then
