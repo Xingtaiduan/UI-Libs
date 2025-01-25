@@ -16,6 +16,7 @@ local services =
     }
 )
 
+local gethui = gethui or function() return nil end
 local mouse = services.Players.LocalPlayer:GetMouse()
 
 function Tween(obj, t, data)
@@ -149,8 +150,8 @@ function drag(frame, hold)
 end
 
 function library.new(library, name, theme)
-    for _, v in next, services.CoreGui:GetChildren() do
-        if v.Name == "XA LuaWare" then
+    for _, v in next, (gethui() or services.CoreGui):GetChildren() do
+        if v.Name == "XA_LuaWare" then
             v:Destroy()
         end
     end
@@ -189,9 +190,10 @@ function library.new(library, name, theme)
         syn.protect_gui(dogent)
     end
 
-    dogent.Name = "XA LuaWare"
-    dogent.Parent = services.CoreGui
-
+    dogent.Name = "XA_LuaWare"
+    dogent.Parent = gethui() or services.CoreGui
+    library.gui = dogent
+    
     function UiDestroy()
         dogent:Destroy()
     end
