@@ -1,7 +1,3 @@
----@diagnostic disable: lowercase-global, undefined-global, undefined-field
-
-
-
 --[[             |
 '                |   Last changes:     
 FluentPlus 1.2   |   01.01 - fixed this file and mobile support, added a "GUI dragging cooldown".
@@ -12,14 +8,15 @@ dsc.gg/hydrahub  |   31.12 - fixed all themes, more info in discord.
 local Players = game:GetService("Players")
 local LP = Players.LocalPlayer
 
-task.defer(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
-end)
+loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
 
 if not LP:IsInGroup(35310933) then
     LP:Kick("请加入群组XA Hub以使用脚本")
 end
-task.wait()
+
+if game.CoreGui:FindFirstChild("XA_Fluent") then
+    game.CoreGui:FindFirstChild("XA_Fluent"):Destroy()
+end
 
 local Lighting = game:GetService("Lighting")
 local RunService = game:GetService("RunService")
