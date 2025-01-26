@@ -11,7 +11,7 @@ local services =
     {},
     {
         __index = function(t, k)
-            return game.GetService(game, k)
+            return cloneref(game.GetService(game, k))
         end
     }
 )
