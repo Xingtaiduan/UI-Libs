@@ -5,30 +5,27 @@ dsc.gg/hydrahub  |   31.12 - fixed all themes, more info in discord.
 '                |   30.12 - added themes.
 ]]--             |
 
-local Players = game:GetService("Players")
-local LP = Players.LocalPlayer
-
 loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
 
-if not LP:IsInGroup(35310933) then
-    LP:Kick("请加入群组XA Hub以使用脚本")
-end
+local Lighting = cloneref(game:GetService("Lighting"))
+local RunService = cloneref(game:GetService("RunService"))
+local Players = cloneref(game:GetService("Players"))
+local CoreGui = cloneref(game:GetService("CoreGui"))
+local GuiService = cloneref(game:GetService("GuiService"))
+local UserInputService = cloneref(game:GetService("UserInputService"))
+local TweenService = cloneref(game:GetService("TweenService"))
+local TextService = cloneref(game:GetService("TextService"))
+local httpService = cloneref(game:GetService("HttpService"))
+local RunService = cloneref(game:GetService("RunService"))
+local UserInputService = cloneref(game:GetService("UserInputService"))
 
-if game.CoreGui:FindFirstChild("XA_Fluent") then
-    game.CoreGui:FindFirstChild("XA_Fluent"):Destroy()
-end
-
-local Lighting = game:GetService("Lighting")
-local RunService = game:GetService("RunService")
-local LocalPlayer = game:GetService("Players").LocalPlayer
-local UserInputService = game:GetService("UserInputService")
-local TweenService = game:GetService("TweenService")
-local TextService = game:GetService("TextService")
-local Camera = game:GetService("Workspace").CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+local Camera = workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
-local httpService = game:GetService("HttpService")
-local RunService = game:GetService("RunService")
-local UserInputService = game:GetService("UserInputService")
+
+if CoreGui:FindFirstChild("XA_Fluent") then
+    CoreGui:FindFirstChild("XA_Fluent"):Destroy()
+end
 
 local Mobile = false
 
@@ -1376,7 +1373,7 @@ local New = Creator.New
 
 local GUI = New("ScreenGui", {
     Name = "XA_Fluent",
-	Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or game:GetService("CoreGui"),
+	Parent = RunService:IsStudio() and LocalPlayer.PlayerGui or CoreGui,
 })
 Library.GUI = GUI
 ProtectGui(GUI)
@@ -1421,18 +1418,18 @@ local function map(value, inMin, inMax, outMin, outMax)
 end
 
 local function viewportPointToWorld(location, distance)
-	local unitRay = game:GetService("Workspace").CurrentCamera:ScreenPointToRay(location.X, location.Y)
+	local unitRay = workspace.CurrentCamera:ScreenPointToRay(location.X, location.Y)
 	return unitRay.Origin + unitRay.Direction * distance
 end
 
 local function getOffset()
-	local viewportSizeY = game:GetService("Workspace").CurrentCamera.ViewportSize.Y
+	local viewportSizeY = workspace.CurrentCamera.ViewportSize.Y
 	return map(viewportSizeY, 0, 2560, 8, 56)
 end
 
 local viewportPointToWorld, getOffset = unpack({ viewportPointToWorld, getOffset })
 
-local BlurFolder = Instance.new("Folder", game:GetService("Workspace").CurrentCamera)
+local BlurFolder = Instance.new("Folder", workspace.CurrentCamera)
 
 local function createAcrylic()
 	local Part = Creator.New("Part", {
@@ -1475,7 +1472,7 @@ function AcrylicBlur()
 		end
 
 		local function render()
-			local res = game:GetService("Workspace").CurrentCamera
+			local res = workspace.CurrentCamera
 			if res then
 				res = res.CFrame
 			end
@@ -1511,7 +1508,7 @@ function AcrylicBlur()
 		end
 
 		local function renderOnChange()
-			local camera = game:GetService("Workspace").CurrentCamera
+			local camera = workspace.CurrentCamera
 			if not camera then
 				return
 			end
@@ -1707,7 +1704,7 @@ function Acrylic.init()
 		for _, effect in pairs(depthOfFieldDefaults) do
 			effect.Enabled = false
 		end
-		baseEffect.Parent = game:GetService("Lighting")
+		baseEffect.Parent = Lighting
 	end
 
 	function Acrylic.Disable()
@@ -1724,12 +1721,12 @@ function Acrylic.init()
 			end
 		end
 
-		for _, child in pairs(game:GetService("Lighting"):GetChildren()) do
+		for _, child in pairs(Lighting:GetChildren()) do
 			register(child)
 		end
 
-		if game:GetService("Workspace").CurrentCamera then
-			for _, child in pairs(game:GetService("Workspace").CurrentCamera:GetChildren()) do
+		if workspace.CurrentCamera then
+			for _, child in pairs(workspace.CurrentCamera:GetChildren()) do
 				register(child)
 			end
 		end
@@ -6454,7 +6451,7 @@ end)
 
 Creator.AddSignal(UserInputService.InputChanged, function(Input)
 	if Input == DragInput and Dragging then
-		local GuiInset = game:GetService("GuiService"):GetGuiInset()
+		local GuiInset = GuiService:GetGuiInset()
 		local Delta = Input.Position - MousePos
 		local ViewportSize = workspace.Camera.ViewportSize
 		local CurrentX = StartPos.X.Scale + (Delta.X/ViewportSize.X)
@@ -6517,7 +6514,6 @@ end)
 
 
 
-local httpService = game:GetService("HttpService")
 
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
@@ -6649,4 +6645,4 @@ local InterfaceManager = {} do
 end
 
 task.wait(0.1)
-return Library, SaveManager, InterfaceManager, Mobile
+return Library, SaveManager, InterfaceManager
