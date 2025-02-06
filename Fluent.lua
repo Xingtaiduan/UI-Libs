@@ -2405,7 +2405,7 @@ Components.Notification = (function()
 		Config.Title = Config.Title or "Title"
 		Config.Content = Config.Content or "Content"
 		Config.SubContent = Config.SubContent or ""
-		Config.Duration = Config.Duration or nil
+		Config.Duration = Config.Duration or 5
 		Config.Buttons = Config.Buttons or {}
 		local NewNotification = {
 			Closed = false,
@@ -2566,11 +2566,9 @@ Components.Notification = (function()
 		end
 
 		NewNotification:Open()
-		if Config.Duration then
-			task.delay(Config.Duration, function()
-				NewNotification:Close()
-			end)
-		end
+		task.delay(Config.Duration, function()
+			NewNotification:Close()
+		end)
 		return NewNotification
 	end
 
@@ -3158,16 +3156,15 @@ Components.Window = (function()
 			if not MinimizeNotif then
 				MinimizeNotif = true
 				local Key = Library.MinimizeKeybind and Library.MinimizeKeybind.Value or Library.MinimizeKey.Name
-				if not Mobile then Library:Notify({
-					Title = "界面",
-					Content = "按下" .. Key .. "以开关界面",
-					Duration = 6
+				if not Mobile then
+				    Library:Notify({
+					    Title = "界面",
+					    Content = "按下" .. Key .. "以开关界面"
 					})
 				else 
 					Library:Notify({
 						Title = "界面 (移动端)",
-						Content = "点击按钮以开关界面",
-						Duration = 6
+						Content = "点击按钮以开关界面"
 					})
 				end
 			end
