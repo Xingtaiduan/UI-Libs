@@ -6333,9 +6333,9 @@ local MinimizeButton = New("TextButton", {
 		PaddingTop = UDim.new(0, 2),
 	}),
 	New("ImageLabel", {
-		Image = Mobile and "rbxassetid://10734897102" or "",
+		Image = Mobile and "rbxassetid://10709810463" or "",
 		Size = UDim2.new(1, 0, 1, 0),
-		BackgroundTransparency = 1,
+		BackgroundTransparency = 1
 	})
 })
 
@@ -6357,8 +6357,12 @@ if Mobile then
 			BorderSizePixel = 0
 		}, {
 			New("UICorner", {
-				CornerRadius = UDim.new(0.25, 0),
-			})
+				CornerRadius = UDim.new(0.25, 0)
+			}),
+			New("UIAspectRatioConstraint", {
+			    AspectRatio = 1,
+			    AspectType = Enum.AspectType.ScaleWithParentSize
+		    }),
 			MinimizeButton
 		})
 	})
@@ -6378,8 +6382,12 @@ else
 			BorderSizePixel = 0
 		}, {
 			New("UICorner", {
-				CornerRadius = UDim.new(0.25, 0),
-			})
+				CornerRadius = UDim.new(0.25, 0)
+			}),
+			New("UIAspectRatioConstraint", {
+			    AspectRatio = 1,
+			    AspectType = Enum.AspectType.ScaleWithParentSize
+		    }),
 			MinimizeButton
 		})
 	})
@@ -6469,38 +6477,6 @@ AddSignal(MinimizeButton.MouseButton1Click, function()
 end)
 
 --
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
@@ -6631,5 +6607,4 @@ local InterfaceManager = {} do
 	end
 end
 
-task.wait(0.1)
 return Library, SaveManager, InterfaceManager
