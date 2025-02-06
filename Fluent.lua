@@ -1741,7 +1741,7 @@ local Components = {
 		Close = "rbxassetid://9886659671",
 		Min = "rbxassetid://9886659276",
 		Max = "rbxassetid://9886659406",
-		Restore = "rbxassetid://9886659001",
+		Restore = "rbxassetid://988665900+1",
 	},
 }
 
@@ -6336,11 +6336,6 @@ local MinimizeButton = New("TextButton", {
 		Image = Mobile and "rbxassetid://10734897102" or "",
 		Size = UDim2.new(1, 0, 1, 0),
 		BackgroundTransparency = 1,
-	}, {
-		New("UIAspectRatioConstraint", {
-			AspectRatio = 1,
-			AspectType = Enum.AspectType.FitWithinMaxSize,
-		})
 	})
 })
 
@@ -6352,7 +6347,7 @@ if Mobile then
 		Size = UDim2.new(0.06, 0, 0.15, 0),
 		Position = UDim2.new(0.85, 0, 0.2, 0),
 		BackgroundTransparency = 1,
-		ZIndex = 999999999,
+		ZIndex = 5,
 	},
 	{
 		New("Frame", {
@@ -6363,11 +6358,7 @@ if Mobile then
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0.25, 0),
-			}),
-			New("UIAspectRatioConstraint", {
-			    AspectRatio = 1,
-			    AspectType = Enum.AspectType.FitWithinMaxSize,
-		    }),
+			})
 			MinimizeButton
 		})
 	})
@@ -6377,7 +6368,7 @@ else
 		Size = UDim2.new(0, 0, 0, 0),
 		Position = UDim2.new(0.85, 0, 0.2, 0),
 		BackgroundTransparency = 1,
-		ZIndex = 999999999,
+		ZIndex = 5,
 	},
 	{
 		New("Frame", {
@@ -6388,11 +6379,7 @@ else
 		}, {
 			New("UICorner", {
 				CornerRadius = UDim.new(0.25, 0),
-			}),
-			New("UIAspectRatioConstraint", {
-			    AspectRatio = 1,
-			    AspectType = Enum.AspectType.FitWithinMaxSize,
-		    }),
+			})
 			MinimizeButton
 		})
 	})
