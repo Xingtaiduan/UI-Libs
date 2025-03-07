@@ -15,9 +15,8 @@ local GuiService = cloneref(game:GetService("GuiService"))
 local UserInputService = cloneref(game:GetService("UserInputService"))
 local TweenService = cloneref(game:GetService("TweenService"))
 local TextService = cloneref(game:GetService("TextService"))
-local httpService = cloneref(game:GetService("HttpService"))
+local HttpService = cloneref(game:GetService("HttpService"))
 local RunService = cloneref(game:GetService("RunService"))
-local UserInputService = cloneref(game:GetService("UserInputService"))
 
 local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
@@ -25,6 +24,44 @@ local Mouse = LocalPlayer:GetMouse()
 
 if CoreGui:FindFirstChild("XA_Fluent") then
     CoreGui:FindFirstChild("XA_Fluent"):Destroy()
+end
+
+local LocaleId = game:GetService("LocalizationService").RobloxLocaleId
+local AutoTranslation
+local function translate(text)
+    if text then
+        local Url = ("https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-cn&tl=%s&dt=t&q=%s"):format(LocaleId, HttpService:UrlEncode(text))
+        local success, result = pcall(function()
+            return HttpService:JSONDecode(game:HttpGet(Url))
+        end)
+        if success then
+            return result[1][1][1]
+        end
+    end
+    return text
+end
+if LocaleId ~= "zh-cn" then
+    local ErrorPrompt = require(CoreGui.RobloxGui.Modules.ErrorPrompt)
+    local prompt = ErrorPrompt.new("Default")
+    prompt._hideErrorCode = true
+    local gui = Instance.new("ScreenGui", CoreGui)
+    prompt:setErrorTitle("XA："..translate("提示"))
+    prompt:updateButtons({{
+		Text = translate("确定"),
+		Callback = function()
+		    AutoTranslation = true
+			prompt:_close()
+		end,
+	}, {
+		Text = translate("取消"),
+		Callback = function()
+		    AutoTranslation = false
+			prompt:_close()
+		end,
+	}}, 'Default')
+    prompt:setParent(gui)
+	prompt:_open(translate("检测到你的语言不是中文, 是否启用自动翻译?"))
+	repeat task.wait() until AutoTranslation ~= nil
 end
 
 local Mobile = false
@@ -1322,6 +1359,12 @@ function Creator.New(Name, Properties, Children)
 	-- Default properties
 	for Name, Value in next, Creator.DefaultProperties[Name] or {} do
 		Object[Name] = Value
+	end
+	
+    if AutoTranslation and Name == "TextLabel" then
+        Object:GetPropertyChangedSignal("Text"):Connect(function()
+            Object.Text = translate(Object.Text)
+        end)
 	end
 
 	-- Properties
@@ -5892,7 +5935,7 @@ local SaveManager = {} do
 			table.insert(data.objects, self.Parser[option.Type].Save(idx, option))
 		end	
 
-		local success, encoded = pcall(httpService.JSONEncode, httpService, data)
+		local success, encoded = pcall(HttpService.JSONEncode, HttpService, data)
 		if not success then
 			return false, "failed to encode data"
 		end
@@ -5909,7 +5952,7 @@ local SaveManager = {} do
 		local file = self.Folder .. "/" .. name .. ".json"
 		if not isfile(file) then return false, "Create Config Save File" end
 
-		local success, decoded = pcall(httpService.JSONDecode, httpService, readfile(file))
+		local success, decoded = pcall(HttpService.JSONDecode, HttpService, readfile(file))
 		if not success then return false, "decode error" end
 
 		for _, option in next, decoded.objects do
@@ -6157,14 +6200,14 @@ local InterfaceManager = {} do
 	end
 
 	function InterfaceManager:SaveSettings()
-		writefile(self.Folder .. "/options.json", httpService:JSONEncode(InterfaceManager.Settings))
+		writefile(self.Folder .. "/options.json", HttpService:JSONEncode(InterfaceManager.Settings))
 	end
 
 	function InterfaceManager:LoadSettings()
 		local path = self.Folder .. "/options.json"
 		if isfile(path) then
 			local data = readfile(path)
-			local success, decoded = pcall(httpService.JSONDecode, httpService, data)
+			local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
 
 			if success then
 				for i, v in next, decoded do
@@ -6513,7 +6556,7 @@ local InterfaceManager = {} do
 	end
 
 	function InterfaceManager:SaveSettings()
-		writefile(self.Folder .. "/options.json", httpService:JSONEncode(InterfaceManager.Settings))
+		writefile(self.Folder .. "/options.json", HttpService:JSONEncode(InterfaceManager.Settings))
 	end
 
 	function InterfaceManager:LoadSettings()
