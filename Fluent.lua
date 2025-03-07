@@ -41,7 +41,7 @@ local function translate(text)
     return text
 end
 if LocaleId ~= "zh-cn" then
-    local ErrorPrompt = require(CoreGui.RobloxGui.Modules.ErrorPrompt)
+    local ErrorPrompt = getrenv().require(CoreGui.RobloxGui.Modules.ErrorPrompt)
     local prompt = ErrorPrompt.new("Default")
     prompt._hideErrorCode = true
     local gui = Instance.new("ScreenGui", CoreGui)
