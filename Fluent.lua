@@ -1387,7 +1387,7 @@ function Creator.New(Name, Properties, Children)
 		Object[Name] = Value
 	end
 	
-	if AutoTranslation and Name == "TextLabel" and Object.Name ~= "TabDisplay" then
+	if AutoTranslation and Name == "TextLabel" and Object.Name ~= "TabDisplay" and Object.Name ~= "SliderDisplay" then
 	    Object:GetPropertyChangedSignal("Text"):Connect(function()
 	        Object.Text = translate(Object.Text)
 	    end)
@@ -4112,6 +4112,7 @@ ElementsTable.Slider = (function()
 		})
 
 		local SliderDisplay = New("TextLabel", {
+		    Name = "SliderDisplay",
 			FontFace = Font.new("rbxasset://fonts/families/GothamSSm.json"),
 			Text = "Value",
 			TextSize = 12,
