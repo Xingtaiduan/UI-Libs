@@ -1386,18 +1386,16 @@ function Creator.New(Name, Properties, Children)
 	for Name, Value in next, Creator.DefaultProperties[Name] or {} do
 		Object[Name] = Value
 	end
-	
-    if AutoTranslation and Name == "TextLabel" then
-        Object:GetPropertyChangedSignal("Text"):Connect(function()
-            Object.Text = translate(Object.Text)
-        end)
-	end
 
 	-- Properties
 	for Name, Value in next, Properties or {} do
 		if Name ~= "ThemeTag" then
 			Object[Name] = Value
 		end
+	end
+	
+	if AutoTranslation and Name == "TextLabel" then
+        Object.Text = translate(Object.Text)
 	end
 
 	-- Children
