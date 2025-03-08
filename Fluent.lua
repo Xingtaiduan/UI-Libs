@@ -1387,7 +1387,7 @@ function Creator.New(Name, Properties, Children)
 		Object[Name] = Value
 	end
 	
-	if AutoTranslation and Name == "TextLabel" then
+	if AutoTranslation and Name == "TextLabel" and Object.Name ~= "TabDisplay" then
 	    Object:GetPropertyChangedSignal("Text"):Connect(function()
 	        Object.Text = translate(Object.Text)
 	    end)
@@ -2987,6 +2987,7 @@ Components.Window = (function()
 		})
 
 		Window.TabDisplay = New("TextLabel", {
+		    Name = "TabDisplay",
 			RichText = true,
 			Text = "Tab",
 			TextTransparency = 0,
