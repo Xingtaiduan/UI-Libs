@@ -1382,13 +1382,15 @@ end
 function Creator.New(Name, Properties, Children)
 	local Object = Instance.new(Name)
 	
-    if AutoTranslation and Name == "TextLabel" then
-        Properties.Text = translate(Properties.Text)
-	end
-	
 	-- Default properties
 	for Name, Value in next, Creator.DefaultProperties[Name] or {} do
 		Object[Name] = Value
+	end
+	
+	if AutoTranslation and Name == "TextLabel" then
+	    Object:GetPropertyChangedSignal("Text"):Connect(function()
+	        Object.Text = translate(Object.Text)
+	    end)
 	end
 
 	-- Properties
@@ -2039,10 +2041,14 @@ Components.Tab = (function()
 	function TabModule:New(Title, Icon, Parent)
 		local Window = TabModule.Window
 		local Elements = Library.Elements
-
+		
 		TabModule.TabCount = TabModule.TabCount + 1
 		local TabIndex = TabModule.TabCount
-
+		
+		if AutoTranslation then
+            Title = translate(Title)
+        end
+        
 		local Tab = {
 			Selected = false,
 			Name = Title,
@@ -3016,6 +3022,7 @@ Components.Window = (function()
 		})
 
 		Window.Root = New("Frame", {
+		    Name = "MainFrame",
 			BackgroundTransparency = 1,
 			Size = Window.Size,
 			Position = Window.Position,
