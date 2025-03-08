@@ -26,21 +26,47 @@ if CoreGui:FindFirstChild("XA_Fluent") then
     CoreGui:FindFirstChild("XA_Fluent"):Destroy()
 end
 
-local LocaleId = game:GetService("LocalizationService").RobloxLocaleId
+local LocaleId = game:GetService("LocalizationService").RobloxLocaleId:sub(1, 2)
 local AutoTranslation
+local last_call = 0
 local function translate(text)
-    if text then
-        local Url = ("https://translate.googleapis.com/translate_a/single?client=gtx&sl=zh-cn&tl=%s&dt=t&q=%s"):format(LocaleId, HttpService:UrlEncode(text))
-        local success, result = pcall(function()
-            return HttpService:JSONDecode(game:HttpGet(Url))
-        end)
-        if success then
-            return result[1][1][1]
-        end
+    if text == "" then return text end
+    local time_elapsed = os.clock() - last_call
+    if time_elapsed <= .5 then
+        task.wait(.5 - time_elapsed)
+    end
+    local response = request({
+        Url = "https://transmart.qq.com/api/imt",
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode({
+            header = {
+                fn = "auto_translation",
+                client_key = "browser-chrome-110.0.0-Mac OS-df4bd4c5-a65d-44b2-a40f-42f34f3535f2-1677486696487"
+                },
+                type = "plain",
+                model_category = "normal",
+                source = {
+                    lang = "zh",
+                    text_list = {text}
+                },
+                target = {
+                    lang = LocaleId
+                }
+        })
+    })
+    last_call = os.clock()
+    if response.Success then
+        return HttpService:JSONDecode(response.Body).auto_translation[1]
+    else
+        warn("翻译失败", response.StatusMessage)
     end
     return text
 end
-if LocaleId ~= "zh-cn" then
+
+if LocaleId ~= "zh" then
     local ErrorPrompt = getrenv().require(CoreGui.RobloxGui.Modules.ErrorPrompt)
     local prompt = ErrorPrompt.new("Default")
     prompt._hideErrorCode = true
