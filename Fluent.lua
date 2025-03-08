@@ -30,7 +30,7 @@ local LocaleId = game:GetService("LocalizationService").RobloxLocaleId:sub(1, 2)
 local AutoTranslation
 local last_call = 0
 local function translate(text)
-    if text == "" then return text end
+    if not text or text == "" then return text end
     local time_elapsed = os.clock() - last_call
     if time_elapsed <= .5 then
         task.wait(.5 - time_elapsed)
@@ -1381,7 +1381,11 @@ end
 
 function Creator.New(Name, Properties, Children)
 	local Object = Instance.new(Name)
-
+	
+    if AutoTranslation and Name == "TextLabel" then
+        Properties.Text = translate(Properties.Text)
+	end
+	
 	-- Default properties
 	for Name, Value in next, Creator.DefaultProperties[Name] or {} do
 		Object[Name] = Value
@@ -1392,10 +1396,6 @@ function Creator.New(Name, Properties, Children)
 		if Name ~= "ThemeTag" then
 			Object[Name] = Value
 		end
-	end
-	
-	if AutoTranslation and Name == "TextLabel" then
-        Object.Text = translate(Object.Text)
 	end
 
 	-- Children
