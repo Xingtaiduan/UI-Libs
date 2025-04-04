@@ -832,7 +832,7 @@ function library.new(library, name, theme)
                             TweenInfo.new(0.2),
                             {
                                 Position = UDim2.new(0, (state and ToggleSwitch.Size.X.Offset / 2 or 0), 0, 0),
-                                BackgroundColor3 = (state and Color3.fromRGB(255, 255, 255) or beijingColor)
+                                BackgroundColor3 = (state and Color3.fromRGB(0, 255, 0) or beijingColor)
                             }
                         ):Play()
                         library.flags[flag] = state
