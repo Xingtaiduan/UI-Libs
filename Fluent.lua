@@ -6546,7 +6546,9 @@ Creator.AddSignal(UserInputService.InputChanged, function(Input)
 end)
 
 AddSignal(MinimizeButton.MouseButton1Click, function()
-	Library.Window:Minimize()
+    if Library.Window then
+	    Library.Window:Minimize()
+	end
 end)
 
 --
