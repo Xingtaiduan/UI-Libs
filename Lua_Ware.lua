@@ -6,6 +6,12 @@ local ToggleUI = false
 library.currentTab = nil
 library.flags = {}
 
+setmetatable(library.flags, {
+    __index = function()
+        return false
+    end
+})
+
 local services =
     setmetatable(
     {},
