@@ -3057,19 +3057,19 @@ Components.Window = (function()
 			Y = Window.Position.Y.Offset,
 		})
 
-		_G.CDDrag = 0
+		CDDrag = 0
 		Window.SelectorPosMotor = Flipper.SingleMotor.new(17)
 		Window.SelectorSizeMotor = Flipper.SingleMotor.new(0)
 		Window.ContainerBackMotor = Flipper.SingleMotor.new(0)
 		Window.ContainerPosMotor = Flipper.SingleMotor.new(94)
 
 		SizeMotor:onStep(function(values)
-			task.wait(_G.CDDrag / 10)
+			task.wait(CDDrag / 10)
 			Window.Root.Size = UDim2.new(0, values.X, 0, values.Y)
 		end)
 
 		PosMotor:onStep(function(values)
-			task.wait(_G.CDDrag / 10)
+			task.wait(CDDrag / 10)
 			Window.Root.Position = UDim2.new(0, values.X, 0, values.Y)
 		end)
 
@@ -6195,14 +6195,11 @@ end
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
 	InterfaceManager.Settings = {
+		Theme = "Dark",
 		Acrylic = true,
 		Transparency = true,
-		MenuKeybind = "M"
+		MenuKeybind = "LeftControl"
 	}
-
-	function InterfaceManager:SetTheme(name)
-		InterfaceManager.Settings.Theme = name
-	end
 
 	function InterfaceManager:SetFolder(folder)
 		self.Folder = folder;
@@ -6222,7 +6219,7 @@ local InterfaceManager = {} do
 		end
 
 		table.insert(paths, self.Folder)
-		table.insert(paths, self.Folder .. "/")
+		table.insert(paths, self.Folder .. "/settings")
 
 		for i = 1, #paths do
 			local str = paths[i]
@@ -6240,7 +6237,7 @@ local InterfaceManager = {} do
 		local path = self.Folder .. "/options.json"
 		if isfile(path) then
 			local data = readfile(path)
-			local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
+			local success, decoded = nil
 
 			if success then
 				for i, v in next, decoded do
@@ -6257,12 +6254,13 @@ local InterfaceManager = {} do
 
 		InterfaceManager:LoadSettings()
 
-		local section = tab:AddSection("Interface")
+		local section = tab:AddSection("界面")
+
 		local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
-			Title = "Theme",
-			Description = "Changes the interface theme.",
+			Title = "主题",
+			Description = "更换界面主题",
 			Values = Library.Themes,
-			Default = self.Library.Theme,
+			Default = Settings.Theme,
 			Callback = function(Value)
 				Library:SetTheme(Value)
 				Settings.Theme = Value
@@ -6286,8 +6284,8 @@ local InterfaceManager = {} do
 		end
 
 		section:AddToggle("TransparentToggle", {
-			Title = "Transparency",
-			Description = "Makes the interface transparent.",
+			Title = "透明度",
+			Description = "使界面透明",
 			Default = Settings.Transparency,
 			Callback = function(Value)
 				Library:ToggleTransparency(Value)
@@ -6297,22 +6295,29 @@ local InterfaceManager = {} do
 		})
 
 		section:AddSlider("CooldownDragging", {
-			Title = "GUI dragging cooldown.",
-			Default = 5,
+			Title = "GUI拖动冷却时间",
+			Default = 1,
 			Min = 0,
-			Max = 50,
-			Rounding = 1,
+			Max = 3,
+			Rounding = 1.1,
 			Callback = function(Value)
 				CDDrag = Value
-			end,
+			end
 		})
 
-		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "Minimize Bind", Default = Library.MinimizeKey.Name or Settings.MenuKeybind })
+		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "最小化绑定", Default = Settings.MenuKeybind })
 		MenuKeybind:OnChanged(function()
 			Settings.MenuKeybind = MenuKeybind.Value
 			InterfaceManager:SaveSettings()
 		end)
 		Library.MinimizeKeybind = MenuKeybind
+		
+		section:AddButton({
+            Title = "复制作者QQ",
+            Callback = function()
+                setclipboard("2235257491")
+            end
+        })
 	end
 end
 
@@ -6550,136 +6555,5 @@ AddSignal(MinimizeButton.MouseButton1Click, function()
 	    Library.Window:Minimize()
 	end
 end)
-
---
-
-local InterfaceManager = {} do
-	InterfaceManager.Folder = "FluentSettings"
-	InterfaceManager.Settings = {
-		Theme = "Dark",
-		Acrylic = true,
-		Transparency = true,
-		MenuKeybind = "LeftControl"
-	}
-
-	function InterfaceManager:SetFolder(folder)
-		self.Folder = folder;
-		self:BuildFolderTree()
-	end
-
-	function InterfaceManager:SetLibrary(library)
-		self.Library = library
-	end
-
-	function InterfaceManager:BuildFolderTree()
-		local paths = {}
-
-		local parts = self.Folder:split("/")
-		for idx = 1, #parts do
-			paths[#paths + 1] = table.concat(parts, "/", 1, idx)
-		end
-
-		table.insert(paths, self.Folder)
-		table.insert(paths, self.Folder .. "/settings")
-
-		for i = 1, #paths do
-			local str = paths[i]
-			if not isfolder(str) then
-				makefolder(str)
-			end
-		end
-	end
-
-	function InterfaceManager:SaveSettings()
-		writefile(self.Folder .. "/options.json", HttpService:JSONEncode(InterfaceManager.Settings))
-	end
-
-	function InterfaceManager:LoadSettings()
-		local path = self.Folder .. "/options.json"
-		if isfile(path) then
-			local data = readfile(path)
-			local success, decoded = nil
-
-			if success then
-				for i, v in next, decoded do
-					InterfaceManager.Settings[i] = v
-				end
-			end
-		end
-	end
-
-	function InterfaceManager:BuildInterfaceSection(tab)
-		assert(self.Library, "Must set InterfaceManager.Library")
-		local Library = self.Library
-		local Settings = InterfaceManager.Settings
-
-		InterfaceManager:LoadSettings()
-
-		local section = tab:AddSection("界面")
-
-		local InterfaceTheme = section:AddDropdown("InterfaceTheme", {
-			Title = "主题",
-			Description = "更换界面主题",
-			Values = Library.Themes,
-			Default = Settings.Theme,
-			Callback = function(Value)
-				Library:SetTheme(Value)
-				Settings.Theme = Value
-				InterfaceManager:SaveSettings()
-			end
-		})
-
-		InterfaceTheme:SetValue(Settings.Theme)
-
-		if Library.UseAcrylic then
-			section:AddToggle("AcrylicToggle", {
-				Title = "Acrylic",
-				Description = "The blurred background requires graphic quality 8+",
-				Default = Settings.Acrylic,
-				Callback = function(Value)
-					Library:ToggleAcrylic(Value)
-					Settings.Acrylic = Value
-					InterfaceManager:SaveSettings()
-				end
-			})
-		end
-
-		section:AddToggle("TransparentToggle", {
-			Title = "透明度",
-			Description = "使界面透明",
-			Default = Settings.Transparency,
-			Callback = function(Value)
-				Library:ToggleTransparency(Value)
-				Settings.Transparency = Value
-				InterfaceManager:SaveSettings()
-			end
-		})
-
-		section:AddSlider("CooldownDragging", {
-			Title = "GUI拖动冷却时间",
-			Default = 1,
-			Min = 0,
-			Max = 3,
-			Rounding = 1.1,
-			Callback = function(Value)
-				_G.CDDrag = Value
-			end
-		})
-
-		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "最小化绑定", Default = Settings.MenuKeybind })
-		MenuKeybind:OnChanged(function()
-			Settings.MenuKeybind = MenuKeybind.Value
-			InterfaceManager:SaveSettings()
-		end)
-		Library.MinimizeKeybind = MenuKeybind
-		
-		section:AddButton({
-            Title = "复制作者QQ",
-            Callback = function()
-                setclipboard("2235257491")
-            end
-        })
-	end
-end
 
 return Library, SaveManager, InterfaceManager
