@@ -5,7 +5,9 @@ dsc.gg/hydrahub  |   31.12 - fixed all themes, more info in discord.
 '                |   30.12 - added themes.
 ]]--             |
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
+task.spawn(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
+end)
 
 local Lighting = cloneref(game:GetService("Lighting"))
 local RunService = cloneref(game:GetService("RunService"))
@@ -6201,6 +6203,10 @@ local InterfaceManager = {} do
 		MenuKeybind = "LeftControl"
 	}
 
+    function InterfaceManager:SetTheme(name)
+		InterfaceManager.Settings.Theme = name
+	end
+
 	function InterfaceManager:SetFolder(folder)
 		self.Folder = folder;
 		self:BuildFolderTree()
@@ -6219,7 +6225,7 @@ local InterfaceManager = {} do
 		end
 
 		table.insert(paths, self.Folder)
-		table.insert(paths, self.Folder .. "/settings")
+		table.insert(paths, self.Folder .. "/")
 
 		for i = 1, #paths do
 			local str = paths[i]
@@ -6237,7 +6243,7 @@ local InterfaceManager = {} do
 		local path = self.Folder .. "/options.json"
 		if isfile(path) then
 			local data = readfile(path)
-			local success, decoded = nil
+			local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
 
 			if success then
 				for i, v in next, decoded do
