@@ -6225,7 +6225,7 @@ local InterfaceManager = {} do
 		end
 
 		table.insert(paths, self.Folder)
-		table.insert(paths, self.Folder .. "/")
+		table.insert(paths, self.Folder .. "/settings")
 
 		for i = 1, #paths do
 			local str = paths[i]
