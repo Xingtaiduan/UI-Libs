@@ -10,7 +10,6 @@ task.spawn(function()
 end)
 
 local Lighting = cloneref(game:GetService("Lighting"))
-local RunService = cloneref(game:GetService("RunService"))
 local Players = cloneref(game:GetService("Players"))
 local CoreGui = cloneref(game:GetService("CoreGui"))
 local GuiService = cloneref(game:GetService("GuiService"))
@@ -3059,19 +3058,16 @@ Components.Window = (function()
 			Y = Window.Position.Y.Offset,
 		})
 
-		CDDrag = 0
 		Window.SelectorPosMotor = Flipper.SingleMotor.new(17)
 		Window.SelectorSizeMotor = Flipper.SingleMotor.new(0)
 		Window.ContainerBackMotor = Flipper.SingleMotor.new(0)
 		Window.ContainerPosMotor = Flipper.SingleMotor.new(94)
 
 		SizeMotor:onStep(function(values)
-			task.wait(CDDrag / 10)
 			Window.Root.Size = UDim2.new(0, values.X, 0, values.Y)
 		end)
 
 		PosMotor:onStep(function(values)
-			task.wait(CDDrag / 10)
 			Window.Root.Position = UDim2.new(0, values.X, 0, values.Y)
 		end)
 
@@ -6196,27 +6192,23 @@ end
 
 local InterfaceManager = {} do
 	InterfaceManager.Folder = "FluentSettings"
-	InterfaceManager.Settings = {
-		Theme = "Dark",
-		Acrylic = true,
-		Transparency = true,
-		MenuKeybind = "LeftControl"
-	}
+    InterfaceManager.Settings = {
+        Theme = "Dark",
+        Acrylic = true,
+        Transparency = true,
+        MenuKeybind = "LeftControl"
+    }
 
-    function InterfaceManager:SetTheme(name)
-		InterfaceManager.Settings.Theme = name
-	end
-
-	function InterfaceManager:SetFolder(folder)
+    function InterfaceManager:SetFolder(folder)
 		self.Folder = folder;
 		self:BuildFolderTree()
 	end
 
-	function InterfaceManager:SetLibrary(library)
+    function InterfaceManager:SetLibrary(library)
 		self.Library = library
 	end
 
-	function InterfaceManager:BuildFolderTree()
+    function InterfaceManager:BuildFolderTree()
 		local paths = {}
 
 		local parts = self.Folder:split("/")
@@ -6235,30 +6227,30 @@ local InterfaceManager = {} do
 		end
 	end
 
-	function InterfaceManager:SaveSettings()
-		writefile(self.Folder .. "/options.json", HttpService:JSONEncode(InterfaceManager.Settings))
-	end
+    function InterfaceManager:SaveSettings()
+        writefile(self.Folder .. "/options.json", HttpService:JSONEncode(InterfaceManager.Settings))
+    end
 
-	function InterfaceManager:LoadSettings()
-		local path = self.Folder .. "/options.json"
-		if isfile(path) then
-			local data = readfile(path)
-			local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
+    function InterfaceManager:LoadSettings()
+        local path = self.Folder .. "/options.json"
+        if isfile(path) then
+            local data = readfile(path)
+            local success, decoded = pcall(HttpService.JSONDecode, HttpService, data)
 
-			if success then
-				for i, v in next, decoded do
-					InterfaceManager.Settings[i] = v
-				end
-			end
-		end
-	end
+            if success then
+                for i, v in next, decoded do
+                    InterfaceManager.Settings[i] = v
+                end
+            end
+        end
+    end
 
-	function InterfaceManager:BuildInterfaceSection(tab)
-		assert(self.Library, "Must set InterfaceManager.Library")
+    function InterfaceManager:BuildInterfaceSection(tab)
+        assert(self.Library, "Must set InterfaceManager.Library")
 		local Library = self.Library
-		local Settings = InterfaceManager.Settings
+        local Settings = InterfaceManager.Settings
 
-		InterfaceManager:LoadSettings()
+        InterfaceManager:LoadSettings()
 
 		local section = tab:AddSection("界面")
 
@@ -6269,13 +6261,13 @@ local InterfaceManager = {} do
 			Default = Settings.Theme,
 			Callback = function(Value)
 				Library:SetTheme(Value)
-				Settings.Theme = Value
-				InterfaceManager:SaveSettings()
+                Settings.Theme = Value
+                InterfaceManager:SaveSettings()
 			end
 		})
 
-		InterfaceTheme:SetValue(Settings.Theme)
-
+        InterfaceTheme:SetValue(Settings.Theme)
+	
 		if Library.UseAcrylic then
 			section:AddToggle("AcrylicToggle", {
 				Title = "Acrylic",
@@ -6283,12 +6275,12 @@ local InterfaceManager = {} do
 				Default = Settings.Acrylic,
 				Callback = function(Value)
 					Library:ToggleAcrylic(Value)
-					Settings.Acrylic = Value
-					InterfaceManager:SaveSettings()
+                    Settings.Acrylic = Value
+                    InterfaceManager:SaveSettings()
 				end
 			})
 		end
-
+	
 		section:AddToggle("TransparentToggle", {
 			Title = "透明度",
 			Description = "使界面透明",
@@ -6296,35 +6288,17 @@ local InterfaceManager = {} do
 			Callback = function(Value)
 				Library:ToggleTransparency(Value)
 				Settings.Transparency = Value
-				InterfaceManager:SaveSettings()
+                InterfaceManager:SaveSettings()
 			end
 		})
-
-		section:AddSlider("CooldownDragging", {
-			Title = "GUI拖动冷却时间",
-			Default = 1,
-			Min = 0,
-			Max = 3,
-			Rounding = 1.1,
-			Callback = function(Value)
-				CDDrag = Value
-			end
-		})
-
+	
 		local MenuKeybind = section:AddKeybind("MenuKeybind", { Title = "最小化绑定", Default = Settings.MenuKeybind })
 		MenuKeybind:OnChanged(function()
 			Settings.MenuKeybind = MenuKeybind.Value
-			InterfaceManager:SaveSettings()
+            InterfaceManager:SaveSettings()
 		end)
 		Library.MinimizeKeybind = MenuKeybind
-		
-		section:AddButton({
-            Title = "复制作者QQ",
-            Callback = function()
-                setclipboard("2235257491")
-            end
-        })
-	end
+    end
 end
 
 function Library:CreateWindow(Config)
