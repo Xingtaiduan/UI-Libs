@@ -1,6 +1,6 @@
 --[[
     Modification Made by Xingtaiduan
-    Discord: @xingtaiduan#0
+    Discord: xingtaiduan
 ]]
 
 task.spawn(function()
@@ -5991,6 +5991,20 @@ local SaveManager = {} do
 
 		return true
 	end
+	
+	function SaveManager:Delete(name)
+        if (not name) then
+            return false, 'no config file is selected'
+        end
+
+        local file = self.Folder .. '/settings/' .. name .. '.json'
+        if not isfile(file) then return false, 'invalid file' end
+
+        local success = pcall(delfile, file)
+        if not success then return false, 'delete file error' end
+
+        return true
+    end
 
 	function SaveManager:IgnoreThemeSettings()
 		self:SetIgnoreIndexes({ 
@@ -6067,6 +6081,24 @@ local SaveManager = {} do
 			})
 		end
 	end
+	
+	function SaveManager:SaveAutoloadConfig(name)
+        local autoLoadPath = self.Folder .. "/settings/autoload.txt"
+
+        local success = pcall(writefile, autoLoadPath, name)
+        if not success then return false, 'write file error' end
+
+        return true, ""
+    end
+	
+	function SaveManager:DeleteAutoloadConfig()
+        local autoLoadPath = self.Folder .. "/settings/autoload.txt"
+
+        local success = pcall(delfile, autoLoadPath)
+        if not success then return false, 'delete file error' end
+
+        return true, ""
+    end
 
 	function SaveManager:BuildConfigSection(tab)
 		assert(self.Library, "Must set SaveManager.Library")
@@ -6154,28 +6186,82 @@ local SaveManager = {} do
 				Duration = 7
 			})
 		end})
+		
+		section:AddButton({Title = "删除配置", Callback = function()
+            local name = SaveManager.Options.SaveManager_ConfigList.Value
+
+            local success, err = self:Delete(name)
+            if not success then
+                return self.Library:Notify({
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "删除配置失败: " .. err,
+					Duration = 7
+				})
+            end
+
+            self.Library:Notify({
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = string.format("已删除配置 %q", name),
+				Duration = 7
+			})
+            SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
+            SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
+        end})
 
 		section:AddButton({Title = "刷新列表", Callback = function()
 			SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
 			SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
 		end})
 
-		local AutoloadButton
-		AutoloadButton = section:AddButton({Title = "设置为自动加载", Description = "目前自动加载配置: 无", Callback = function()
+		section:AddButton({Title = "设置为自动加载", Callback = function()
 			local name = SaveManager.Options.SaveManager_ConfigList.Value
-			writefile(self.Folder .. "/settings/autoload.txt", name)
-			AutoloadButton:SetDesc("Current autoload config: " .. name)
+			
+			local success, err = self:SaveAutoloadConfig(name)
+            if not success then
+                return self.Library:Notify({
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "设置自动加载配置失败: " .. err,
+					Duration = 7
+				})
+            end
+            
 			self.Library:Notify({
 				Title = "界面",
 				Content = "配置加载器",
 				SubContent = string.format("已设置%q为自动加载", name),
 				Duration = 7
 			})
+			SaveManager.AutoloadLabel:SetTitle("目前自动加载配置: " .. name)
 		end})
+		
+		section:AddButton({Title = "删除自动加载配置", Callback = function()
+            local success, err = self:DeleteAutoloadConfig()
+            if not success then
+                return self.Library:Notify({
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "删除自动加载配置失败: " .. err,
+					Duration = 7
+				})
+            end
 
-		if isfile(self.Folder .. "/settings/autoload.txt") then
+            self.Library:Notify({
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = "已删除自动加载配置",
+				Duration = 7
+			})
+            SaveManager.AutoloadLabel:SetTitle("目前自动加载配置: 无")
+        end)
+        
+        self.AutoloadLabel = section:AddParagraph({Title = "目前自动加载配置: 无"})
+        
+        if isfile(self.Folder .. "/settings/autoload.txt") then
 			local name = readfile(self.Folder .. "/settings/autoload.txt")
-			AutoloadButton:SetDesc("目前自动加载配置: " .. name)
+			SaveManager.AutoloadLabel:SetTitle("目前自动加载配置: " .. name)
 		end
 
 		SaveManager:SetIgnoreIndexes({ "SaveManager_ConfigList", "SaveManager_ConfigName" })
