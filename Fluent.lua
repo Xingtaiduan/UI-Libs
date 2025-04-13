@@ -1,9 +1,7 @@
---[[             |
-'                |   Last changes:     
-FluentPlus 1.2   |   01.01 - fixed this file and mobile support, added a "GUI dragging cooldown".
-dsc.gg/hydrahub  |   31.12 - fixed all themes, more info in discord.
-'                |   30.12 - added themes.
-]]--             |
+--[[
+    Modification Made by Xingtaiduan
+    Discord: @xingtaiduan#0
+]]
 
 task.spawn(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
@@ -1459,16 +1457,16 @@ function Library:SafeCallback(Function, ...)
 
 		if not i then
 			return Library:Notify({
-				Title = "Interface",
-				Content = "Callback error",
+				Title = "界面",
+				Content = "回调函数错误",
 				SubContent = Event,
 				Duration = 5,
 			})
 		end
 
 		return Library:Notify({
-			Title = "Interface",
-			Content = "Callback error",
+			Title = "界面",
+			Content = "回调函数错误",
 			SubContent = Event:sub(i + 1),
 			Duration = 5,
 		})
@@ -6054,17 +6052,17 @@ local SaveManager = {} do
 			local success, err = self:Load(name)
 			if not success then
 				return self.Library:Notify({
-					Title = "Interface",
-					Content = "Config loader",
-					SubContent = "Failed to load autoload config: " .. err,
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "加载自动加载配置失败: " .. err,
 					Duration = 7
 				})
 			end
 
 			self.Library:Notify({
-				Title = "Interface",
-				Content = "Config loader",
-				SubContent = string.format("Auto loaded config %q", name),
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = string.format("已自动加载配置 %q", name),
 				Duration = 7
 			})
 		end
@@ -6084,9 +6082,9 @@ local SaveManager = {} do
 
                 if name:gsub(" ", "") == "" then 
                     return self.Library:Notify({
-						Title = "Interface",
-						Content = "Config loader",
-						SubContent = "Invalid config name (empty)",
+						Title = "界面",
+						Content = "配置加载器",
+						SubContent = "配置名称无效(空)",
 						Duration = 7
 					})
                 end
@@ -6094,17 +6092,17 @@ local SaveManager = {} do
                 local success, err = self:Save(name)
                 if not success then
                     return self.Library:Notify({
-						Title = "Interface",
-						Content = "Config loader",
-						SubContent = "Failed to save config: " .. err,
+						Title = "界面",
+						Content = "配置加载器",
+						SubContent = "创建配置失败: " .. err,
 						Duration = 7
 					})
                 end
 
 				self.Library:Notify({
-					Title = "Interface",
-					Content = "Config loader",
-					SubContent = string.format("Created config %q", name),
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = string.format("已创建配置 %q", name),
 					Duration = 7
 				})
 
@@ -6121,17 +6119,17 @@ local SaveManager = {} do
 			local success, err = self:Load(name)
 			if not success then
 				return self.Library:Notify({
-					Title = "Interface",
-					Content = "Config loader",
-					SubContent = "Failed to load config: " .. err,
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "加载配置失败: " .. err,
 					Duration = 7
 				})
 			end
 
 			self.Library:Notify({
-				Title = "Interface",
-				Content = "Config loader",
-				SubContent = string.format("Loaded config %q", name),
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = string.format("已加载配置 %q", name),
 				Duration = 7
 			})
 		end})
@@ -6142,17 +6140,17 @@ local SaveManager = {} do
 			local success, err = self:Save(name)
 			if not success then
 				return self.Library:Notify({
-					Title = "Interface",
-					Content = "Config loader",
-					SubContent = "Failed to overwrite config: " .. err,
+					Title = "界面",
+					Content = "配置加载器",
+					SubContent = "加载配置失败: " .. err,
 					Duration = 7
 				})
 			end
 
 			self.Library:Notify({
-				Title = "Interface",
-				Content = "Config loader",
-				SubContent = string.format("Overwrote config %q", name),
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = string.format("已覆盖配置 %q", name),
 				Duration = 7
 			})
 		end})
@@ -6163,21 +6161,21 @@ local SaveManager = {} do
 		end})
 
 		local AutoloadButton
-		AutoloadButton = section:AddButton({Title = "设置为自动加载", Description = "目前，自动加载配置: 无", Callback = function()
+		AutoloadButton = section:AddButton({Title = "设置为自动加载", Description = "目前自动加载配置: 无", Callback = function()
 			local name = SaveManager.Options.SaveManager_ConfigList.Value
 			writefile(self.Folder .. "/settings/autoload.txt", name)
 			AutoloadButton:SetDesc("Current autoload config: " .. name)
 			self.Library:Notify({
-				Title = "Interface",
-				Content = "Config loader",
-				SubContent = string.format("Set %q to auto load", name),
+				Title = "界面",
+				Content = "配置加载器",
+				SubContent = string.format("已设置%q为自动加载", name),
 				Duration = 7
 			})
 		end})
 
 		if isfile(self.Folder .. "/settings/autoload.txt") then
 			local name = readfile(self.Folder .. "/settings/autoload.txt")
-			AutoloadButton:SetDesc("Current autoload config: " .. name)
+			AutoloadButton:SetDesc("目前自动加载配置: " .. name)
 		end
 
 		SaveManager:SetIgnoreIndexes({ "SaveManager_ConfigList", "SaveManager_ConfigName" })
