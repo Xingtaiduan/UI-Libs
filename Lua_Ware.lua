@@ -188,7 +188,7 @@ function library.new(library, name, theme)
 
     dogent.Name = "XA_LuaWare"
     dogent.Parent = gethui() or services.CoreGui
-    library.gui = dogent
+    Library.Gui = dogent
     
     function UiDestroy()
         dogent:Destroy()
