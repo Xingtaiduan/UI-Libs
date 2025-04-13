@@ -5952,12 +5952,11 @@ local SaveManager = {} do
 			return false, "no config file is selected"
 		end
 
-		local fullPath = self.Folder .. "/" .. name .. ".json"
+		local fullPath = self.Folder .. "/settings/" .. name .. ".json"
 
 		local data = {
 			objects = {}
 		}
-
 
 		for idx, option in next, SaveManager.Options do
 			if not self.Parser[option.Type] then continue end
@@ -5979,22 +5978,20 @@ local SaveManager = {} do
 		if (not name) then
 			return false, "no config file is selected"
 		end
-
-		local file = self.Folder .. "/" .. name .. ".json"
-		if not isfile(file) then return false, "Create Config Save File" end
+		
+		local file = self.Folder .. "/settings/" .. name .. ".json"
+		if not isfile(file) then return false, "invalid file" end
 
 		local success, decoded = pcall(HttpService.JSONDecode, HttpService, readfile(file))
 		if not success then return false, "decode error" end
 
 		for _, option in next, decoded.objects do
-			if self.Parser[option.type] and not self.Ignore[option.idx] then
+			if self.Parser[option.type] then
 				task.spawn(function() self.Parser[option.type].Load(option.idx, option) end) -- task.spawn() so the config loading wont get stuck.
 			end
 		end
 
-		Fluent.SettingLoaded = true
-
-		return true, decoded
+		return true
 	end
 
 	function SaveManager:IgnoreThemeSettings()
@@ -6006,7 +6003,7 @@ local SaveManager = {} do
 	function SaveManager:BuildFolderTree()
 		local paths = {
 			self.Folder,
-			self.Folder .. "/"
+			self.Folder .. "/settings"
 		}
 
 		for i = 1, #paths do
@@ -6018,7 +6015,7 @@ local SaveManager = {} do
 	end
 
 	function SaveManager:RefreshConfigList()
-		local list = listfiles(self.Folder .. "/")
+		local list = listfiles(self.Folder .. "/settings")
 
 		local out = {}
 		for i = 1, #list do
@@ -6041,18 +6038,18 @@ local SaveManager = {} do
 				end
 			end
 		end
-
+		
 		return out
 	end
 
 	function SaveManager:SetLibrary(library)
 		self.Library = library
-		self.Options = library.Options
+        self.Options = library.Options
 	end
 
 	function SaveManager:LoadAutoloadConfig()
-		if isfile(self.Folder .. "/autoload.txt") then
-			local name = readfile(self.Folder .. "/autoload.txt")
+		if isfile(self.Folder .. "/settings/autoload.txt") then
+			local name = readfile(self.Folder .. "/settings/autoload.txt")
 
 			local success, err = self:Load(name)
 			if not success then
@@ -6076,34 +6073,33 @@ local SaveManager = {} do
 	function SaveManager:BuildConfigSection(tab)
 		assert(self.Library, "Must set SaveManager.Library")
 
-		local section = tab:AddSection("Configuration")
+		local section = tab:AddSection("配置")
 
-		section:AddInput("SaveManager_ConfigName",    { Title = "Config name" })
-		section:AddDropdown("SaveManager_ConfigList", { Title = "Config list", Values = self:RefreshConfigList(), AllowNull = true })
-
+		section:AddInput("SaveManager_ConfigName",    { Title = "配置名称" })
+		
 		section:AddButton({
-			Title = "Create config",
-			Callback = function()
-				local name = SaveManager.Options.SaveManager_ConfigName.Value
+            Title = "创建配置",
+            Callback = function()
+                local name = SaveManager.Options.SaveManager_ConfigName.Value
 
-				if name:gsub(" ", "") == "" then 
-					return self.Library:Notify({
+                if name:gsub(" ", "") == "" then 
+                    return self.Library:Notify({
 						Title = "Interface",
 						Content = "Config loader",
 						SubContent = "Invalid config name (empty)",
 						Duration = 7
 					})
-				end
+                end
 
-				local success, err = self:Save(name)
-				if not success then
-					return self.Library:Notify({
+                local success, err = self:Save(name)
+                if not success then
+                    return self.Library:Notify({
 						Title = "Interface",
 						Content = "Config loader",
 						SubContent = "Failed to save config: " .. err,
 						Duration = 7
 					})
-				end
+                end
 
 				self.Library:Notify({
 					Title = "Interface",
@@ -6112,12 +6108,14 @@ local SaveManager = {} do
 					Duration = 7
 				})
 
-				SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
-				SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
-			end
-		})
+                SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
+                SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
+            end
+        })
+        
+		section:AddDropdown("SaveManager_ConfigList", { Title = "配置列表", Values = self:RefreshConfigList(), AllowNull = true })
 
-		section:AddButton({Title = "Load config", Callback = function()
+        section:AddButton({Title = "加载配置", Callback = function()
 			local name = SaveManager.Options.SaveManager_ConfigList.Value
 
 			local success, err = self:Load(name)
@@ -6138,7 +6136,7 @@ local SaveManager = {} do
 			})
 		end})
 
-		section:AddButton({Title = "Save config", Callback = function()
+		section:AddButton({Title = "覆盖配置", Callback = function()
 			local name = SaveManager.Options.SaveManager_ConfigList.Value
 
 			local success, err = self:Save(name)
@@ -6159,15 +6157,15 @@ local SaveManager = {} do
 			})
 		end})
 
-		section:AddButton({Title = "Refresh list", Callback = function()
+		section:AddButton({Title = "刷新列表", Callback = function()
 			SaveManager.Options.SaveManager_ConfigList:SetValues(self:RefreshConfigList())
 			SaveManager.Options.SaveManager_ConfigList:SetValue(nil)
 		end})
 
 		local AutoloadButton
-		AutoloadButton = section:AddButton({Title = "Set as autoload", Description = "Current autoload config: none", Callback = function()
+		AutoloadButton = section:AddButton({Title = "设置为自动加载", Description = "目前，自动加载配置: 无", Callback = function()
 			local name = SaveManager.Options.SaveManager_ConfigList.Value
-			writefile(self.Folder .. "/autoload.txt", name)
+			writefile(self.Folder .. "/settings/autoload.txt", name)
 			AutoloadButton:SetDesc("Current autoload config: " .. name)
 			self.Library:Notify({
 				Title = "Interface",
@@ -6177,17 +6175,15 @@ local SaveManager = {} do
 			})
 		end})
 
-		if isfile(self.Folder .. "/autoload.txt") then
-			local name = readfile(self.Folder .. "/autoload.txt")
+		if isfile(self.Folder .. "/settings/autoload.txt") then
+			local name = readfile(self.Folder .. "/settings/autoload.txt")
 			AutoloadButton:SetDesc("Current autoload config: " .. name)
 		end
 
 		SaveManager:SetIgnoreIndexes({ "SaveManager_ConfigList", "SaveManager_ConfigName" })
 	end
 
-	if not RunService:IsStudio() then
-		SaveManager:BuildFolderTree()
-	end
+	SaveManager:BuildFolderTree()
 end
 
 local InterfaceManager = {} do
@@ -6326,7 +6322,6 @@ function Library:CreateWindow(Config)
 	})
 
 	Library.Window = Window
-	InterfaceManager:SetTheme(Config.Theme)
 	Library:SetTheme(Config.Theme)
 
 	return Window
