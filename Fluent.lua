@@ -6255,7 +6255,7 @@ local SaveManager = {} do
 				Duration = 7
 			})
             SaveManager.AutoloadLabel:SetTitle("目前自动加载配置: 无")
-        end)
+        end})
         
         self.AutoloadLabel = section:AddParagraph({Title = "目前自动加载配置: 无"})
         
