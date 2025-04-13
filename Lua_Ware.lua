@@ -6,12 +6,6 @@ local ToggleUI = false
 library.currentTab = nil
 library.flags = {}
 
-setmetatable(library.flags, {
-    __index = function()
-        return nil
-    end
-})
-
 local services = setmetatable({}, {
     __index = function(t, k)
         return cloneref(game.GetService(game, k))
@@ -160,13 +154,13 @@ function library.new(library, name, theme)
     if theme == "dark" then
         MainColor = Color3.fromRGB(28, 33, 55)
         Background = Color3.fromRGB(28, 33, 55)
-        zyColor = Color3.fromRGB(37, 43, 71)
-        beijingColor = Color3.fromRGB(255, 247, 247)
+        MainColor = Color3.fromRGB(37, 43, 71)
+        BackgroundColor = Color3.fromRGB(255, 247, 247)
     else
         MainColor = Color3.fromRGB(28, 33, 55)
         Background = Color3.fromRGB(28, 33, 55)
-        zyColor = Color3.fromRGB(37, 43, 71)
-        beijingColor = Color3.fromRGB(255, 247, 247)
+        MainColor = Color3.fromRGB(37, 43, 71)
+        BackgroundColor = Color3.fromRGB(255, 247, 247)
     end
     local dogent = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
@@ -315,7 +309,7 @@ function library.new(library, name, theme)
     Side.Position = UDim2.new(1, 0, 0, 0)
     Side.Size = UDim2.new(0, 110, 0, 353)
 
-    SideG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, zyColor), ColorSequenceKeypoint.new(1.00, zyColor)}
+    SideG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
     SideG.Rotation = 90
     SideG.Name = "SideG"
     SideG.Parent = Side
@@ -466,7 +460,7 @@ function library.new(library, name, theme)
     end
     coroutine.wrap(NPLHKB_fake_script)()
 
-    SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, zyColor), ColorSequenceKeypoint.new(1.00, zyColor)}
+    SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
     SBG.Rotation = 90
     SBG.Name = "SBG"
     SBG.Parent = SB
@@ -604,7 +598,7 @@ function library.new(library, name, theme)
 
             Section.Name = "Section"
             Section.Parent = Tab
-            Section.BackgroundColor3 = zyColor
+            Section.BackgroundColor3 = MainColor
             Section.BackgroundTransparency = 1.000
             Section.BorderSizePixel = 0
             Section.ClipsDescendants = true
@@ -705,7 +699,7 @@ function library.new(library, name, theme)
 
                 Btn.Name = "Btn"
                 Btn.Parent = BtnModule
-                Btn.BackgroundColor3 = zyColor
+                Btn.BackgroundColor3 = MainColor
                 Btn.BorderSizePixel = 0
                 Btn.Size = UDim2.new(0, 428, 0, 38)
                 Btn.AutoButtonColor = false
@@ -747,7 +741,7 @@ function library.new(library, name, theme)
                 LabelModule.Size = UDim2.new(0, 428, 0, 19)
 
                 TextLabel.Parent = LabelModule
-                TextLabel.BackgroundColor3 = zyColor
+                TextLabel.BackgroundColor3 = MainColor
                 TextLabel.Size = UDim2.new(0, 428, 0, 22)
                 TextLabel.Font = Enum.Font.GothamSemibold
                 TextLabel.Text = text
@@ -787,7 +781,7 @@ function library.new(library, name, theme)
 
                 ToggleBtn.Name = "ToggleBtn"
                 ToggleBtn.Parent = ToggleModule
-                ToggleBtn.BackgroundColor3 = zyColor
+                ToggleBtn.BackgroundColor3 = MainColor
                 ToggleBtn.BorderSizePixel = 0
                 ToggleBtn.Size = UDim2.new(0, 428, 0, 38)
                 ToggleBtn.AutoButtonColor = false
@@ -810,7 +804,7 @@ function library.new(library, name, theme)
 
                 ToggleSwitch.Name = "ToggleSwitch"
                 ToggleSwitch.Parent = ToggleDisable
-                ToggleSwitch.BackgroundColor3 = beijingColor
+                ToggleSwitch.BackgroundColor3 = BackgroundColor
                 ToggleSwitch.Size = UDim2.new(0, 24, 0, 22)
 
                 ToggleSwitchC.CornerRadius = UDim.new(0, 6)
@@ -834,7 +828,7 @@ function library.new(library, name, theme)
                             TweenInfo.new(0.2),
                             {
                                 Position = UDim2.new(0, (state and ToggleSwitch.Size.X.Offset / 2 or 0), 0, 0),
-                                BackgroundColor3 = (state and Color3.fromRGB(0, 255, 0) or beijingColor)
+                                BackgroundColor3 = (state and Color3.fromRGB(0, 255, 0) or BackgroundColor)
                             }
                         ):Play()
                         library.flags[flag] = state
@@ -907,7 +901,7 @@ function library.new(library, name, theme)
 
                 KeybindBtn.Name = "KeybindBtn"
                 KeybindBtn.Parent = KeybindModule
-                KeybindBtn.BackgroundColor3 = zyColor
+                KeybindBtn.BackgroundColor3 = MainColor
                 KeybindBtn.BorderSizePixel = 0
                 KeybindBtn.Size = UDim2.new(0, 428, 0, 38)
                 KeybindBtn.AutoButtonColor = false
@@ -1017,7 +1011,7 @@ function library.new(library, name, theme)
 
                 TextboxBack.Name = "TextboxBack"
                 TextboxBack.Parent = TextboxModule
-                TextboxBack.BackgroundColor3 = zyColor
+                TextboxBack.BackgroundColor3 = MainColor
                 TextboxBack.BorderSizePixel = 0
                 TextboxBack.Size = UDim2.new(0, 428, 0, 38)
                 TextboxBack.AutoButtonColor = false
@@ -1122,7 +1116,7 @@ function library.new(library, name, theme)
 
                 SliderBack.Name = "SliderBack"
                 SliderBack.Parent = SliderModule
-                SliderBack.BackgroundColor3 = zyColor
+                SliderBack.BackgroundColor3 = MainColor
                 SliderBack.BorderSizePixel = 0
                 SliderBack.Size = UDim2.new(0, 428, 0, 38)
                 SliderBack.AutoButtonColor = false
@@ -1374,7 +1368,7 @@ function library.new(library, name, theme)
 
                 DropdownTop.Name = "DropdownTop"
                 DropdownTop.Parent = DropdownModule
-                DropdownTop.BackgroundColor3 = zyColor
+                DropdownTop.BackgroundColor3 = MainColor
                 DropdownTop.BorderSizePixel = 0
                 DropdownTop.Size = UDim2.new(0, 428, 0, 38)
                 DropdownTop.AutoButtonColor = false
@@ -1496,7 +1490,7 @@ function library.new(library, name, theme)
 
                     Option.Name = "Option_" .. option
                     Option.Parent = DropdownModule
-                    Option.BackgroundColor3 = zyColor
+                    Option.BackgroundColor3 = MainColor
                     Option.BorderSizePixel = 0
                     Option.Position = UDim2.new(0, 0, 0.328125, 0)
                     Option.Size = UDim2.new(0, 428, 0, 26)
