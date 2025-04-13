@@ -8,19 +8,15 @@ library.flags = {}
 
 setmetatable(library.flags, {
     __index = function()
-        return false
+        return nil
     end
 })
 
-local services =
-    setmetatable(
-    {},
-    {
-        __index = function(t, k)
-            return cloneref(game.GetService(game, k))
-        end
-    }
-)
+local services = setmetatable({}, {
+    __index = function(t, k)
+        return cloneref(game.GetService(game, k))
+    end
+})
 
 local gethui = gethui or function() return nil end
 local mouse = services.Players.LocalPlayer:GetMouse()
