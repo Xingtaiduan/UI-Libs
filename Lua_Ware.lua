@@ -1,10 +1,10 @@
 repeat
     task.wait()
 until game:IsLoaded()
-local library = {}
+local Library = {}
 local ToggleUI = false
-library.currentTab = nil
-library.flags = {}
+Library.currentTab = nil
+Library.flags = {}
 
 local services = setmetatable({}, {
     __index = function(t, k)
@@ -66,10 +66,10 @@ function switchTab(new)
     if switchingTabs then
         return
     end
-    local old = library.currentTab
+    local old = Library.currentTab
     if old == nil then
         new[2].Visible = true
-        library.currentTab = new
+        Library.currentTab = new
         services.TweenService:Create(new[1], TweenInfo.new(0.1), {ImageTransparency = 0}):Play()
         services.TweenService:Create(new[1].TabText, TweenInfo.new(0.1), {TextTransparency = 0}):Play()
         return
@@ -79,7 +79,7 @@ function switchTab(new)
         return
     end
     switchingTabs = true
-    library.currentTab = new
+    Library.currentTab = new
 
     services.TweenService:Create(old[1], TweenInfo.new(0.1), {ImageTransparency = 0.2}):Play()
     services.TweenService:Create(new[1], TweenInfo.new(0.1), {ImageTransparency = 0}):Play()
@@ -145,7 +145,7 @@ function drag(frame, hold)
     )
 end
 
-function library.new(library, name, theme)
+function Library.new(Library, name, theme)
     for _, v in next, (gethui() or services.CoreGui):GetChildren() do
         if v.Name == "XA_LuaWare" then
             v:Destroy()
@@ -575,7 +575,7 @@ function library.new(library, name, theme)
             end
         )
 
-        if library.currentTab == nil then
+        if Library.currentTab == nil then
             switchTab({TabIco, Tab})
         end
 
@@ -761,7 +761,7 @@ function library.new(library, name, theme)
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
 
-                library.flags[flag] = enabled
+                Library.flags[flag] = enabled
 
                 local ToggleModule = Instance.new("Frame")
                 local ToggleBtn = Instance.new("TextButton")
@@ -818,9 +818,9 @@ function library.new(library, name, theme)
                 local funcs = {
                     SetState = function(self, state)
                         if state == nil then
-                            state = not library.flags[flag]
+                            state = not Library.flags[flag]
                         end
-                        if library.flags[flag] == state then
+                        if Library.flags[flag] == state then
                             return
                         end
                         services.TweenService:Create(
@@ -831,7 +831,7 @@ function library.new(library, name, theme)
                                 BackgroundColor3 = (state and Color3.fromRGB(0, 255, 0) or BackgroundColor)
                             }
                         ):Play()
-                        library.flags[flag] = state
+                        Library.flags[flag] = state
                         callback(state)
                     end,
                     Module = ToggleModule
@@ -990,7 +990,7 @@ function library.new(library, name, theme)
                 assert(flag, "No flag provided")
                 assert(default, "No default text provided")
 
-                library.flags[flag] = default
+                Library.flags[flag] = default
 
                 local TextboxModule = Instance.new("Frame")
                 local TextboxBack = Instance.new("TextButton")
@@ -1066,7 +1066,7 @@ function library.new(library, name, theme)
                         if TextBox.Text == "" then
                             TextBox.Text = default
                         end
-                        library.flags[flag] = TextBox.Text
+                        Library.flags[flag] = TextBox.Text
                         callback(TextBox.Text)
                     end
                 )
@@ -1087,7 +1087,7 @@ function library.new(library, name, theme)
                 local default = default or min
                 local precise = precise or false
 
-                library.flags[flag] = default
+                Library.flags[flag] = default
 
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
@@ -1218,7 +1218,7 @@ function library.new(library, name, theme)
                         else
                             value = value or math.floor(min + (max - min) * percent)
                         end
-                        library.flags[flag] = tonumber(value)
+                        Library.flags[flag] = tonumber(value)
                         SliderValue.Text = tostring(value)
                         SliderPart.Size = UDim2.new(percent, 0, 1, 0)
                         callback(tonumber(value))
@@ -1227,7 +1227,7 @@ function library.new(library, name, theme)
 
                 MinSlider.MouseButton1Click:Connect(
                     function()
-                        local currentValue = library.flags[flag]
+                        local currentValue = Library.flags[flag]
                         currentValue = math.clamp(currentValue - 1, min, max)
                         funcs:SetValue(currentValue)
                     end
@@ -1235,7 +1235,7 @@ function library.new(library, name, theme)
 
                 AddSlider.MouseButton1Click:Connect(
                     function()
-                        local currentValue = library.flags[flag]
+                        local currentValue = Library.flags[flag]
                         currentValue = math.clamp(currentValue + 1, min, max)
                         funcs:SetValue(currentValue)
                     end
@@ -1346,7 +1346,7 @@ function library.new(library, name, theme)
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
 
-                library.flags[flag] = nil
+                Library.flags[flag] = nil
 
                 local DropdownModule = Instance.new("Frame")
                 local DropdownTop = Instance.new("TextButton")
@@ -1509,7 +1509,7 @@ function library.new(library, name, theme)
                             ToggleDropVis()
                             callback(Option.Text)
                             DropdownText.Text = Option.Text
-                            library.flags[flag] = Option.Text
+                            Library.flags[flag] = Option.Text
                         end
                     )
                 end
@@ -1542,4 +1542,4 @@ function library.new(library, name, theme)
     end
     return window
 end
-return library
+return Library
