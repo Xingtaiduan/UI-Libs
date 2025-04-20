@@ -3,7 +3,7 @@
     Discord: xingtaiduan
 ]]
 
-task.spawn(function()
+task.defer(function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
 end)
 
