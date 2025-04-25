@@ -6453,6 +6453,10 @@ function Library:Notify(Config)
 	return NotificationModule:New(Config)
 end
 
+function Library:GiveSignal(Signal)
+    table.insert(Creator.Signals, Signal)
+end
+
 if getgenv then
 	getgenv().Fluent = Library
 else
