@@ -1253,7 +1253,7 @@ function Library.new(Library, name, theme)
 
                 SliderBar.InputBegan:Connect(
                     function(input)
-                        if input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
                             funcs:SetValue()
                             dragging = true
                         end
@@ -1262,7 +1262,7 @@ function Library.new(Library, name, theme)
 
                 services.UserInputService.InputEnded:Connect(
                     function(input)
-                        if dragging and input.UserInputType == Enum.UserInputType.MouseButton1 then
+                        if dragging and (input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch) then
                             dragging = false
                         end
                     end
@@ -1270,32 +1270,7 @@ function Library.new(Library, name, theme)
 
                 services.UserInputService.InputChanged:Connect(
                     function(input)
-                        if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
-                            funcs:SetValue()
-                        end
-                    end
-                )
-
-                SliderBar.InputBegan:Connect(
-                    function(input)
-                        if input.UserInputType == Enum.UserInputType.Touch then
-                            funcs:SetValue()
-                            dragging = true
-                        end
-                    end
-                )
-
-                services.UserInputService.InputEnded:Connect(
-                    function(input)
-                        if dragging and input.UserInputType == Enum.UserInputType.Touch then
-                            dragging = false
-                        end
-                    end
-                )
-
-                services.UserInputService.InputChanged:Connect(
-                    function(input)
-                        if dragging and input.UserInputType == Enum.UserInputType.Touch then
+                        if dragging and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
                             funcs:SetValue()
                         end
                     end
