@@ -2475,6 +2475,7 @@ Components.Notification = (function()
 			Size = UDim2.new(0, 310, 1, -30),
 			AnchorPoint = Vector2.new(1, 1),
 			BackgroundTransparency = 1,
+			ZIndex = 2,
 			Parent = GUI,
 		}, {
 			New("UIListLayout", {
