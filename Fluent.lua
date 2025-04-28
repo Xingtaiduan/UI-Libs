@@ -21,8 +21,8 @@ local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 
-if CoreGui:FindFirstChild("XA_Fluent") then
-    CoreGui:FindFirstChild("XA_Fluent"):Destroy()
+if getgenv().XA_Fluent then
+    getgenv().XA_Fluent:Destroy()
 end
 
 local LocaleId = game:GetService("LocalizationService").RobloxLocaleId:sub(1, 2)
@@ -3545,7 +3545,7 @@ ElementsTable.Dropdown = (function()
 		})
 
 		local DropdownScrollFrame = New("ScrollingFrame", {
-			Size = UDim2.new(1, -5, 1, -10),
+			Size = UDim2.new(1, -5, 1, Dropdown.Searchable and -40 or -10),
 			Position = UDim2.fromOffset(5, 5),
 			BackgroundTransparency = 1,
 			BottomImage = "rbxassetid://6889812791",
@@ -3819,18 +3819,6 @@ ElementsTable.Dropdown = (function()
 
 				local Button = Button_BuildList:Clone()
 				local ButtonSelector, ButtonLabel = Button.Frame, Button.ButtonLabel
-
-				Creator.AddThemeObject(Button, {
-					BackgroundColor3 = "DropdownOption"
-				})
-
-				Creator.AddThemeObject(ButtonSelector, {
-					BackgroundColor3 = "Accent",
-				})
-
-				Creator.AddThemeObject(ButtonLabel, {
-					TextColor3 = "Text"
-				})
 
 				if Config.Multi then
 					Selected = Dropdown.Value[Value]
@@ -6622,4 +6610,5 @@ AddSignal(MinimizeButton.MouseButton1Click, function()
 	end
 end)
 
+getgenv().XA_Fluent = Library
 return Library, SaveManager, InterfaceManager
