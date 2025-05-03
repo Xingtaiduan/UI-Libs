@@ -1237,6 +1237,7 @@ local Flipper = {
 local Creator = {
 	Registry = {},
 	Signals = {},
+	UnloadSignals = {},
 	TransparencyMotors = {},
 	DefaultProperties = {
 		ScreenGui = {
@@ -1318,6 +1319,9 @@ function Creator.Disconnect()
 			Connection:Disconnect()
 		end
 	end
+	for _, UnloadCallback in pairs(Creator.UnloadSignals) do
+        Library:SafeCallback(UnloadCallback)
+    end
 end
 
 Creator.Themes = Themes
@@ -6420,6 +6424,14 @@ function Library:Destroy()
 	end
 end
 
+function Library:GiveSignal(Signal)
+    table.insert(Creator.Signals, Signal)
+end
+
+function Library:OnUnload(Callback)
+    table.insert(Creator.UnloadSignals, Callback)
+end
+
 function Library:ToggleAcrylic(Value)
 	if Library.Window then
 		if Library.UseAcrylic then
@@ -6442,10 +6454,6 @@ end
 
 function Library:Notify(Config)
 	return NotificationModule:New(Config)
-end
-
-function Library:GiveSignal(Signal)
-    table.insert(Creator.Signals, Signal)
 end
 
 if getgenv then
