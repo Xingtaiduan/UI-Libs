@@ -3550,7 +3550,7 @@ ElementsTable.Dropdown = (function()
 
 		local DropdownScrollFrame = New("ScrollingFrame", {
 			Size = UDim2.new(1, -5, 1, Dropdown.Searchable and -40 or -10),
-			Position = UDim2.fromOffset(5, 5),
+			Position = UDim2.fromOffset(5, Dropdown.Searchable and 40 or 5),
 			BackgroundTransparency = 1,
 			BottomImage = "rbxassetid://6889812791",
 			MidImage = "rbxassetid://6889812721",
@@ -3663,7 +3663,7 @@ ElementsTable.Dropdown = (function()
 		table.insert(Library.OpenFrames, DropdownHolderCanvas)
 
 		local function RecalculateListPosition()
-			local Add = -40
+			local Add = 0
 			if Camera.ViewportSize.Y - DropdownInner.AbsolutePosition.Y < DropdownHolderCanvas.AbsoluteSize.Y - 5 then
 				Add = DropdownHolderCanvas.AbsoluteSize.Y
 					- 5
@@ -4133,6 +4133,10 @@ ElementsTable.Slider = (function()
 				or Input.UserInputType == Enum.UserInputType.Touch
 			then
 				Dragging = true
+				local SizeScale =
+					math.clamp((Input.Position.X - SliderRail.AbsolutePosition.X) / SliderRail.AbsoluteSize.X, 0, 1)
+				Slider.IsMoved = true
+				Slider:SetValue(Slider.Min + ((Slider.Max - Slider.Min) * SizeScale))
 			end
 		end)
 		
