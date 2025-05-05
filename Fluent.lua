@@ -21,8 +21,8 @@ local LocalPlayer = Players.LocalPlayer
 local Camera = workspace.CurrentCamera
 local Mouse = LocalPlayer:GetMouse()
 
-if getgenv().XA_Fluent then
-    getgenv().XA_Fluent:Destroy()
+if getgenv().Fluent then
+    getgenv().Fluent:Destroy()
 end
 
 local LocaleId = game:GetService("LocalizationService").RobloxLocaleId:sub(1, 2)
@@ -90,17 +90,7 @@ if LocaleId ~= "zh" then
 end
 
 local Mobile = false
-
-if RunService:IsStudio() then
-	if UserInputService.TouchEnabled and not UserInputService.KeyboardEnabled and not UserInputService.MouseEnabled then
-		Mobile = true
-	else
-		Mobile = false
-	end
-else
-
-	Mobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
-end
+Mobile = table.find({Enum.Platform.IOS, Enum.Platform.Android}, UserInputService:GetPlatform()) ~= nil
 
 local RenderStepped = RunService.RenderStepped
 
@@ -6622,5 +6612,4 @@ AddSignal(MinimizeButton.MouseButton1Click, function()
 	end
 end)
 
-getgenv().XA_Fluent = Library
 return Library, SaveManager, InterfaceManager
