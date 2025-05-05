@@ -3,7 +3,7 @@
     Discord: xingtaiduan
 ]]
 
-task.defer(function()
+task.delay(5, function()
     loadstring(game:HttpGet("https://raw.githubusercontent.com/XingFork/Scripts/refs/heads/main/FluentLoader"))()
 end)
 
@@ -1803,7 +1803,7 @@ local Components = {
 		Close = "rbxassetid://9886659671",
 		Min = "rbxassetid://9886659276",
 		Max = "rbxassetid://9886659406",
-		Restore = "rbxassetid://988665900",
+		Restore = "rbxassetid://9886659001",
 	},
 }
 
