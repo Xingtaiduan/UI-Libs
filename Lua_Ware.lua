@@ -586,7 +586,7 @@ function Library.new(Library, name, theme)
         )
 
         local tab = {}
-        function tab.section(tab, name, TabVal)
+        function tab.Section(tab, name, TabVal)
             local Section = Instance.new("Frame")
             local SectionC = Instance.new("UICorner")
             local SectionText = Instance.new("TextLabel")
