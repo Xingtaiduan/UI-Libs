@@ -145,6 +145,7 @@ function Library.new(Library, name)
     Main.Parent = dogent
     Main.AnchorPoint = Vector2.new(0.5, 0.5)
     Main.BackgroundColor3 = Background
+    Main.BackgroundTransparency = 0.5
     Main.BorderColor3 = MainColor
     Main.Position = UDim2.new(0.5, 0, 0.5, 0)
     Main.Size = UDim2.new(0, 572, 0, 353)
@@ -187,6 +188,7 @@ function Library.new(Library, name)
     SB.Name = "SB"
     SB.Parent = Main
     SB.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    SB.BackgroundTransparency = 0.5
     SB.BorderColor3 = MainColor
     SB.Size = UDim2.new(0, 8, 0, 353)
 
@@ -197,6 +199,7 @@ function Library.new(Library, name)
     Side.Name = "Side"
     Side.Parent = SB
     Side.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Side.BackgroundTransparency = 0.5
     Side.BorderColor3 = Color3.fromRGB(25, 25, 25)
     Side.BorderSizePixel = 0
     Side.ClipsDescendants = true
@@ -240,7 +243,7 @@ function Library.new(Library, name)
     local hue = 0
     task.spawn(function()
         while true do
-            hue = (hue + 0.05 * task.wait(0.1)) % 1
+            hue = (hue + 0.1 * task.wait(0.1)) % 1
             ScriptTitle.TextColor3 = Color3.fromHSV(hue, 1, 1)
         end
     end)
