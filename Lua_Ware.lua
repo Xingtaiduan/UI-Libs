@@ -16,9 +16,7 @@ local gethui = gethui or function() return nil end
 local mouse = services.Players.LocalPlayer:GetMouse()
 
 function Tween(obj, t, data)
-    services.TweenService:Create(obj, TweenInfo.new(t[1], Enum.EasingStyle[t[2]], Enum.EasingDirection[t[3]]), data):Play(
-
-    )
+    services.TweenService:Create(obj, TweenInfo.new(t[1], Enum.EasingStyle[t[2]], Enum.EasingDirection[t[3]]), data):Play()
     return true
 end
 
@@ -94,74 +92,16 @@ function switchTab(new)
     switchingTabs = false
 end
 
--- # Drag, Stolen from Kiriot or Wally # --
-function drag(frame, hold)
-    if not hold then
-        hold = frame
-    end
-    local dragging
-    local dragInput
-    local dragStart
-    local startPos
-
-    local function update(input)
-        local delta = input.Position - dragStart
-        frame.Position =
-            UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
-    end
-
-    hold.InputBegan:Connect(
-        function(input)
-            if input.UserInputType == Enum.UserInputType.MouseButton1 then
-                dragging = true
-                dragStart = input.Position
-                startPos = frame.Position
-
-                input.Changed:Connect(
-                    function()
-                        if input.UserInputState == Enum.UserInputState.End then
-                            dragging = false
-                        end
-                    end
-                )
-            end
-        end
-    )
-
-    frame.InputChanged:Connect(
-        function(input)
-            if input.UserInputType == Enum.UserInputType.MouseMovement then
-                dragInput = input
-            end
-        end
-    )
-
-    services.UserInputService.InputChanged:Connect(
-        function(input)
-            if input == dragInput and dragging then
-                update(input)
-            end
-        end
-    )
-end
-
-function Library.new(Library, name, theme)
+function Library.new(Library, name)
     for _, v in next, (gethui() or services.CoreGui):GetChildren() do
         if v.Name == "XA_LuaWare" then
             v:Destroy()
         end
     end
-    if theme == "dark" then
-        MainColor = Color3.fromRGB(28, 33, 55)
-        Background = Color3.fromRGB(28, 33, 55)
-        MainColor = Color3.fromRGB(37, 43, 71)
-        BackgroundColor = Color3.fromRGB(255, 247, 247)
-    else
-        MainColor = Color3.fromRGB(28, 33, 55)
-        Background = Color3.fromRGB(28, 33, 55)
-        MainColor = Color3.fromRGB(37, 43, 71)
-        BackgroundColor = Color3.fromRGB(255, 247, 247)
-    end
+    local Background = Color3.fromRGB(25, 25, 25)
+    local MainColor = Color3.fromRGB(25, 25, 25)
+    local BackgroundColor = Color3.fromRGB(255, 255, 255)
+    
     local dogent = Instance.new("ScreenGui")
     local Main = Instance.new("Frame")
     local TabMain = Instance.new("Frame")
@@ -173,7 +113,6 @@ function Library.new(Library, name, theme)
     local TabBtns = Instance.new("ScrollingFrame")
     local TabBtnsL = Instance.new("UIListLayout")
     local ScriptTitle = Instance.new("TextLabel")
-    local ScriptTitleG = Instance.new("UIGradient")
     local SBG = Instance.new("UIGradient")
     
     local Open = Instance.new("TextButton")
@@ -238,7 +177,7 @@ function Library.new(Library, name, theme)
     TabMain.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     TabMain.BackgroundTransparency = 1.000
     TabMain.Position = UDim2.new(0.217000037, 0, 0, 3)
-    TabMain.Size = UDim2.new(0, 448, 0, 353)
+    TabMain.Size = UDim2.new(0, 448, 0, 346)
 
     MainC.CornerRadius = UDim.new(0, 5.5)
     MainC.Name = "MainC"
@@ -297,8 +236,13 @@ function Library.new(Library, name, theme)
     ScriptTitle.TextScaled = true
     ScriptTitle.TextXAlignment = Enum.TextXAlignment.Left
     
-    ScriptTitleG.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 4)), ColorSequenceKeypoint.new(0.20, Color3.fromRGB(255, 0, 255)), ColorSequenceKeypoint.new(0.40, Color3.fromRGB(0, 0, 255)), ColorSequenceKeypoint.new(0.55, Color3.fromRGB(0, 255, 255)), ColorSequenceKeypoint.new(0.70, Color3.fromRGB(0, 255, 0)), ColorSequenceKeypoint.new(0.85, Color3.fromRGB(255, 255, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 0, 0))}
-    ScriptTitleG.Parent = ScriptTitle
+    local hue = 0
+    task.spawn(function()
+        while true do
+            hue = (hue + 0.05 * task.wait(0.1)) % 1
+            ScriptTitle.TextColor3 = Color3.fromHSV(hue, 1, 1)
+        end
+    end)
 
     SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
     SBG.Rotation = 90
@@ -324,7 +268,7 @@ function Library.new(Library, name, theme)
     Open.TextSize = 14.000
     Open.Active = true
     Open.Draggable = true
-    local uihide = false 
+    local uihide = false
 
     Open.MouseButton1Click:Connect(function()
     if uihide == false then
@@ -340,14 +284,10 @@ function Library.new(Library, name, theme)
     end
     end)
 
-
-
     wait(0.1)
     Main:TweenPosition(UDim2.new(0.5, 0, 2, 0), "Out", "Sine", 0.7, true)
     wait(0.5)
     Main:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Sine", 0.5, true) 
-
-    drag(Main)
 
     local window = {}
     function window.Tab(window, name, icon)
@@ -522,8 +462,7 @@ function Library.new(Library, name, theme)
 
             local section = {}
             function section.Button(section, text, callback)
-                local callback = callback or function()
-                    end
+                local callback = callback or function() end
 
                 local BtnModule = Instance.new("Frame")
                 local Btn = Instance.new("TextButton")
@@ -595,8 +534,7 @@ function Library.new(Library, name, theme)
             end
 
             function section.Toggle(section, text, flag, enabled, callback)
-                local callback = callback or function()
-                    end
+                local callback = callback or function() end
                 local enabled = enabled or false
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
@@ -690,8 +628,7 @@ function Library.new(Library, name, theme)
             end
 
             function section.Keybind(section, text, default, callback)
-                local callback = callback or function()
-                    end
+                local callback = callback or function() end
                 assert(text, "No text provided")
                 assert(default, "No default key provided")
 
@@ -824,8 +761,7 @@ function Library.new(Library, name, theme)
             end
 
             function section.Textbox(section, text, flag, default, callback)
-                local callback = callback or function()
-                    end
+                local callback = callback or function() end
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
                 assert(default, "No default text provided")
@@ -920,8 +856,7 @@ function Library.new(Library, name, theme)
             end
 
             function section.Slider(section, text, flag, default, min, max, precise, callback)
-                local callback = callback or function()
-                    end
+                local callback = callback or function() end
                 local min = min or 1
                 local max = max or 10
                 local default = default or min
@@ -1154,14 +1089,17 @@ function Library.new(Library, name, theme)
 
                 return funcs, SliderModule
             end
-            function section.Dropdown(section, text, flag, options, callback)
-                local callback = callback or function()
-                    end
+            function section.Dropdown(section, text, flag, options, default, callback)
+                local callback = callback or function() end
+                if type(default) == "function" then
+                    callback = default
+                    default = nil
+                end
                 local options = options or {}
                 assert(text, "No text provided")
                 assert(flag, "No flag provided")
 
-                Library.flags[flag] = nil
+                Library.flags[flag] = options[default]
 
                 local DropdownModule = Instance.new("Frame")
                 local DropdownTop = Instance.new("TextButton")
@@ -1220,7 +1158,7 @@ function Library.new(Library, name, theme)
                 DropdownText.Size = UDim2.new(0, 184, 0, 38)
                 DropdownText.Font = Enum.Font.GothamSemibold
                 DropdownText.PlaceholderColor3 = Color3.fromRGB(255, 255, 255)
-                DropdownText.PlaceholderText = text
+                DropdownText.PlaceholderText = default and text.." - "..options[default] or text
                 DropdownText.Text = ""
                 DropdownText.TextColor3 = Color3.fromRGB(255, 255, 255)
                 DropdownText.TextSize = 16.000
@@ -1323,7 +1261,7 @@ function Library.new(Library, name, theme)
                         function()
                             ToggleDropVis()
                             callback(Option.Text)
-                            DropdownText.Text = Option.Text
+                            DropdownText.Text = text.." - "..Option.Text
                             Library.flags[flag] = Option.Text
                         end
                     )
