@@ -173,6 +173,7 @@ function Library.new(Library, name, theme)
     local TabBtns = Instance.new("ScrollingFrame")
     local TabBtnsL = Instance.new("UIListLayout")
     local ScriptTitle = Instance.new("TextLabel")
+    local ScriptTitleG = Instance.new("UIGradient")
     local SBG = Instance.new("UIGradient")
     
     local Open = Instance.new("TextButton")
@@ -295,6 +296,9 @@ function Library.new(Library, name, theme)
     ScriptTitle.TextSize = 14.000
     ScriptTitle.TextScaled = true
     ScriptTitle.TextXAlignment = Enum.TextXAlignment.Left
+    
+    ScriptTitleG.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 4)), ColorSequenceKeypoint.new(0.20, Color3.fromRGB(255, 0, 255)), ColorSequenceKeypoint.new(0.40, Color3.fromRGB(0, 0, 255)), ColorSequenceKeypoint.new(0.55, Color3.fromRGB(0, 255, 255)), ColorSequenceKeypoint.new(0.70, Color3.fromRGB(0, 255, 0)), ColorSequenceKeypoint.new(0.85, Color3.fromRGB(255, 255, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(255, 0, 0))}
+    ScriptTitleG.Parent = ScriptTitle
 
     SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
     SBG.Rotation = 90
