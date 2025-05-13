@@ -100,6 +100,7 @@ function Library.new(Library, name)
     end
     local Background = Color3.fromRGB(25, 25, 25)
     local MainColor = Color3.fromRGB(25, 25, 25)
+    local ElementColor = Color3.fromRGB(30, 30, 30)
     local BackgroundColor = Color3.fromRGB(255, 255, 255)
     
     local dogent = Instance.new("ScreenGui")
@@ -196,13 +197,13 @@ function Library.new(Library, name)
     Side.Name = "Side"
     Side.Parent = SB
     Side.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-    Side.BorderColor3 = Color3.fromRGB(255, 255, 255)
+    Side.BorderColor3 = Color3.fromRGB(25, 25, 25)
     Side.BorderSizePixel = 0
     Side.ClipsDescendants = true
     Side.Position = UDim2.new(1, 0, 0, 0)
     Side.Size = UDim2.new(0, 110, 0, 353)
 
-    SideG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
+    SideG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, ElementColor), ColorSequenceKeypoint.new(1.00, ElementColor)}
     SideG.Rotation = 90
     SideG.Name = "SideG"
     SideG.Parent = Side
@@ -244,7 +245,7 @@ function Library.new(Library, name)
         end
     end)
 
-    SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
+    SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, ElementColor), ColorSequenceKeypoint.new(1.00, ElementColor)}
     SBG.Rotation = 90
     SBG.Name = "SBG"
     SBG.Parent = SB
@@ -300,7 +301,7 @@ function Library.new(Library, name)
         Tab.Name = "Tab"
         Tab.Parent = TabMain
         Tab.Active = true
-        Tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+        Tab.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
         Tab.BackgroundTransparency = 1.000
         Tab.Size = UDim2.new(1, 0, 1, 0)
         Tab.ScrollBarThickness = 2
@@ -378,7 +379,7 @@ function Library.new(Library, name)
 
             Section.Name = "Section"
             Section.Parent = Tab
-            Section.BackgroundColor3 = MainColor
+            Section.BackgroundColor3 = ElementColor
             Section.BackgroundTransparency = 1.000
             Section.BorderSizePixel = 0
             Section.ClipsDescendants = true
@@ -478,7 +479,7 @@ function Library.new(Library, name)
 
                 Btn.Name = "Btn"
                 Btn.Parent = BtnModule
-                Btn.BackgroundColor3 = MainColor
+                Btn.BackgroundColor3 = ElementColor
                 Btn.BorderSizePixel = 0
                 Btn.Size = UDim2.new(0, 428, 0, 38)
                 Btn.AutoButtonColor = false
@@ -520,7 +521,7 @@ function Library.new(Library, name)
                 LabelModule.Size = UDim2.new(0, 428, 0, 19)
 
                 TextLabel.Parent = LabelModule
-                TextLabel.BackgroundColor3 = MainColor
+                TextLabel.BackgroundColor3 = ElementColor
                 TextLabel.Size = UDim2.new(0, 428, 0, 22)
                 TextLabel.Font = Enum.Font.GothamSemibold
                 TextLabel.Text = text
@@ -559,7 +560,7 @@ function Library.new(Library, name)
 
                 ToggleBtn.Name = "ToggleBtn"
                 ToggleBtn.Parent = ToggleModule
-                ToggleBtn.BackgroundColor3 = MainColor
+                ToggleBtn.BackgroundColor3 = ElementColor
                 ToggleBtn.BorderSizePixel = 0
                 ToggleBtn.Size = UDim2.new(0, 428, 0, 38)
                 ToggleBtn.AutoButtonColor = false
@@ -678,7 +679,7 @@ function Library.new(Library, name)
 
                 KeybindBtn.Name = "KeybindBtn"
                 KeybindBtn.Parent = KeybindModule
-                KeybindBtn.BackgroundColor3 = MainColor
+                KeybindBtn.BackgroundColor3 = ElementColor
                 KeybindBtn.BorderSizePixel = 0
                 KeybindBtn.Size = UDim2.new(0, 428, 0, 38)
                 KeybindBtn.AutoButtonColor = false
@@ -787,7 +788,7 @@ function Library.new(Library, name)
 
                 TextboxBack.Name = "TextboxBack"
                 TextboxBack.Parent = TextboxModule
-                TextboxBack.BackgroundColor3 = MainColor
+                TextboxBack.BackgroundColor3 = ElementColor
                 TextboxBack.BorderSizePixel = 0
                 TextboxBack.Size = UDim2.new(0, 428, 0, 38)
                 TextboxBack.AutoButtonColor = false
@@ -891,7 +892,7 @@ function Library.new(Library, name)
 
                 SliderBack.Name = "SliderBack"
                 SliderBack.Parent = SliderModule
-                SliderBack.BackgroundColor3 = MainColor
+                SliderBack.BackgroundColor3 = ElementColor
                 SliderBack.BorderSizePixel = 0
                 SliderBack.Size = UDim2.new(0, 428, 0, 38)
                 SliderBack.AutoButtonColor = false
@@ -1121,7 +1122,7 @@ function Library.new(Library, name)
 
                 DropdownTop.Name = "DropdownTop"
                 DropdownTop.Parent = DropdownModule
-                DropdownTop.BackgroundColor3 = MainColor
+                DropdownTop.BackgroundColor3 = ElementColor
                 DropdownTop.BorderSizePixel = 0
                 DropdownTop.Size = UDim2.new(0, 428, 0, 38)
                 DropdownTop.AutoButtonColor = false
@@ -1243,7 +1244,7 @@ function Library.new(Library, name)
 
                     Option.Name = "Option_" .. option
                     Option.Parent = DropdownModule
-                    Option.BackgroundColor3 = MainColor
+                    Option.BackgroundColor3 = ElementColor
                     Option.BorderSizePixel = 0
                     Option.Position = UDim2.new(0, 0, 0.328125, 0)
                     Option.Size = UDim2.new(0, 428, 0, 26)
