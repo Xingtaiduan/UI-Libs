@@ -174,13 +174,9 @@ function Library.new(Library, name, theme)
     local TabBtnsL = Instance.new("UIListLayout")
     local ScriptTitle = Instance.new("TextLabel")
     local SBG = Instance.new("UIGradient")
+    
     local Open = Instance.new("TextButton")
-    local UIG = Instance.new("UIGradient")
-    local DropShadowHolder = Instance.new("Frame")
-    local DropShadow = Instance.new("ImageLabel")
     local UICornerMain = Instance.new("UICorner")
-    local UIGradient = Instance.new("UIGradient")
-    local UIGradientTitle = Instance.new("UIGradient")
 
     if syn and syn.protect_gui then
         syn.protect_gui(dogent)
@@ -217,49 +213,6 @@ function Library.new(Library, name, theme)
 
     UICornerMain.Parent = Main
     UICornerMain.CornerRadius = UDim.new(0, 3)
-
-    DropShadowHolder.Name = "DropShadowHolder"
-    DropShadowHolder.Parent = Main
-    DropShadowHolder.BackgroundTransparency = 1.000
-    DropShadowHolder.BorderSizePixel = 0
-    DropShadowHolder.Size = UDim2.new(1, 0, 1, 0)
-    DropShadowHolder.BorderColor3 = Color3.fromRGB(255, 255, 255)
-    DropShadowHolder.ZIndex = 0
-
-    DropShadow.Name = "DropShadow"
-    DropShadow.Parent = DropShadowHolder
-    DropShadow.AnchorPoint = Vector2.new(0.5, 0.5)
-    DropShadow.BackgroundTransparency = 1.000
-    DropShadow.BorderSizePixel = 0
-    DropShadow.Position = UDim2.new(0.5, 0, 0.5, 0)
-    DropShadow.Size = UDim2.new(1, 43, 1, 43)
-    DropShadow.ZIndex = 0
-    DropShadow.Image = "rbxassetid://6015897843"
-    DropShadow.ImageColor3 = Color3.fromRGB(255, 255, 255)
-    DropShadow.ImageTransparency = 0
-    DropShadow.ScaleType = Enum.ScaleType.Slice
-    DropShadow.SliceCenter = Rect.new(49, 49, 450, 450)
-
-    UIGradient.Color =
-        ColorSequence.new {
-        ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)),
-        ColorSequenceKeypoint.new(0.10, Color3.fromRGB(255, 127, 0)),
-        ColorSequenceKeypoint.new(0.20, Color3.fromRGB(255, 255, 0)),
-        ColorSequenceKeypoint.new(0.30, Color3.fromRGB(0, 255, 0)),
-        ColorSequenceKeypoint.new(0.40, Color3.fromRGB(0, 255, 255)),
-        ColorSequenceKeypoint.new(0.50, Color3.fromRGB(0, 0, 255)),
-        ColorSequenceKeypoint.new(0.60, Color3.fromRGB(139, 0, 255)),
-        ColorSequenceKeypoint.new(0.70, Color3.fromRGB(255, 0, 0)),
-        ColorSequenceKeypoint.new(0.80, Color3.fromRGB(255, 127, 0)),
-        ColorSequenceKeypoint.new(0.90, Color3.fromRGB(255, 255, 0)),
-        ColorSequenceKeypoint.new(1.00, Color3.fromRGB(0, 255, 0))
-    }
-    UIGradient.Parent = DropShadow
-
-    local TweenService = game:GetService("TweenService")
-    local tweeninfo = TweenInfo.new(7, Enum.EasingStyle.Linear, Enum.EasingDirection.In, -1)
-    local tween = TweenService:Create(UIGradient, tweeninfo, {Rotation = 360})
-    tween:Play()
 
     function toggleui()
         toggled = not toggled
@@ -343,123 +296,6 @@ function Library.new(Library, name, theme)
     ScriptTitle.TextScaled = true
     ScriptTitle.TextXAlignment = Enum.TextXAlignment.Left
 
-    UIGradientTitle.Parent = ScriptTitle
-
-    local function NPLHKB_fake_script()
-        local script = Instance.new("LocalScript", ScriptTitle)
-
-        local button = script.Parent
-        local gradient = button.UIGradient
-        local ts = game:GetService("TweenService")
-        local ti = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-        local offset = {Offset = Vector2.new(1, 0)}
-        local create = ts:Create(gradient, ti, offset)
-        local startingPos = Vector2.new(-1, 0)
-        local list = {}
-        local s, kpt = ColorSequence.new, ColorSequenceKeypoint.new
-        local counter = 0
-        local status = "down"
-        gradient.Offset = startingPos
-        local function rainbowColors()
-            local sat, val = 255, 255
-            for i = 1, 10 do
-                local hue = i * 17
-                table.insert(list, Color3.fromHSV(hue / 255, sat / 255, val / 255))
-            end
-        end
-        rainbowColors()
-        gradient.Color =
-            s(
-            {
-                kpt(0, list[#list]),
-                kpt(0.5, list[#list - 1]),
-                kpt(1, list[#list - 2])
-            }
-        )
-        counter = #list
-        local function animate()
-            create:Play()
-            create.Completed:Wait()
-            gradient.Offset = startingPos
-            gradient.Rotation = 180
-            if counter == #list - 1 and status == "down" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, gradient.Color.Keypoints[1].Value),
-                        kpt(0.5, list[#list]),
-                        kpt(1, list[1])
-                    }
-                )
-                counter = 1
-                status = "up"
-            elseif counter == #list and status == "down" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, gradient.Color.Keypoints[1].Value),
-                        kpt(0.5, list[1]),
-                        kpt(1, list[2])
-                    }
-                )
-                counter = 2
-                status = "up"
-            elseif counter <= #list - 2 and status == "down" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, gradient.Color.Keypoints[1].Value),
-                        kpt(0.5, list[counter + 1]),
-                        kpt(1, list[counter + 2])
-                    }
-                )
-                counter = counter + 2
-                status = "up"
-            end
-            create:Play()
-            create.Completed:Wait()
-            gradient.Offset = startingPos
-            gradient.Rotation = 0
-            if counter == #list - 1 and status == "up" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, list[1]),
-                        kpt(0.5, list[#list]),
-                        kpt(1, gradient.Color.Keypoints[3].Value)
-                    }
-                )
-                counter = 1
-                status = "down"
-            elseif counter == #list and status == "up" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, list[2]),
-                        kpt(0.5, list[1]),
-                        kpt(1, gradient.Color.Keypoints[3].Value)
-                    }
-                )
-                counter = 2
-                status = "down"
-            elseif counter <= #list - 2 and status == "up" then
-                gradient.Color =
-                    s(
-                    {
-                        kpt(0, list[counter + 2]),
-                        kpt(0.5, list[counter + 1]),
-                        kpt(1, gradient.Color.Keypoints[3].Value)
-                    }
-                )
-                counter = counter + 2
-                status = "down"
-            end
-            animate()
-        end
-        animate()
-    end
-    coroutine.wrap(NPLHKB_fake_script)()
-
     SBG.Color = ColorSequence.new {ColorSequenceKeypoint.new(0.00, MainColor), ColorSequenceKeypoint.new(1.00, MainColor)}
     SBG.Rotation = 90
     SBG.Name = "SBG"
@@ -508,7 +344,7 @@ function Library.new(Library, name, theme)
     Main:TweenPosition(UDim2.new(0.5, 0, 0.5, 0), "Out", "Sine", 0.5, true) 
 
     drag(Main)
-    UIG.Parent = Open
+
     local window = {}
     function window.Tab(window, name, icon)
         local Tab = Instance.new("ScrollingFrame")
