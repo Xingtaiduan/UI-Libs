@@ -100,7 +100,7 @@ function Library.new(Library, name)
     end
     local Background = Color3.fromRGB(25, 25, 25)
     local MainColor = Color3.fromRGB(25, 25, 25)
-    local ElementColor = Color3.fromRGB(30, 30, 30)
+    local ElementColor = Color3.fromRGB(35, 40, 70)
     local BackgroundColor = Color3.fromRGB(255, 255, 255)
     
     local dogent = Instance.new("ScreenGui")
@@ -610,7 +610,7 @@ function Library.new(Library, name)
                             TweenInfo.new(0.2),
                             {
                                 Position = UDim2.new(0, (state and ToggleSwitch.Size.X.Offset / 2 or 0), 0, 0),
-                                BackgroundColor3 = (state and Color3.fromRGB(0, 255, 0) or BackgroundColor)
+                                BackgroundColor3 = (state and Color3.fromRGB(96, 205, 255) or BackgroundColor)
                             }
                         ):Play()
                         Library.flags[flag] = state
